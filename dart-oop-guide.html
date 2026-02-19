@@ -1,0 +1,3037 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 دليل Dart OOP الكامل | Mohamed Hassan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0175C2;
+            --primary-dark: #01579B;
+            --secondary: #00BFA5;
+            --accent: #FF6B6B;
+            --warning: #FFA726;
+            --success: #66BB6A;
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-tertiary: #334155;
+            --bg-card: #1E293B;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            --gradient-1: linear-gradient(135deg, #0175C2 0%, #00BFA5 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-3: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --code-bg: #0D1117;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #E2E8F0;
+            --bg-card: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --border: #E2E8F0;
+            --code-bg: #F1F5F9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--bg-tertiary);
+            z-index: 10000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-1);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 4px;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        [data-theme="light"] .header {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(1, 117, 194, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 191, 165, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Navigation Sidebar */
+        .nav-sidebar {
+            position: fixed;
+            right: 0;
+            top: 73px;
+            bottom: 0;
+            width: 320px;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 9998;
+            padding: 1.5rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .nav-toggle {
+            position: fixed;
+            right: 2rem;
+            top: 90px;
+            z-index: 9997;
+            background: var(--gradient-1);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .nav-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--bg-tertiary);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .nav-number {
+            width: 28px;
+            height: 28px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .nav-link.active .nav-number {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section-header {
+            padding: 1.5rem 2rem;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+
+        .section-header:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .section.open .section-header {
+            border-bottom-color: var(--border);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section-info h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .section-info p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .section-toggle {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+            color: var(--text-primary);
+        }
+
+        .section.open .section-toggle {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .section.open .section-content {
+            max-height: 50000px;
+        }
+
+        .section-body {
+            padding: 2rem;
+        }
+
+        /* Content Styles */
+        .concept-box {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-right: 4px solid var(--primary);
+        }
+
+        .concept-box h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-box p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--code-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .code-header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        [data-theme="light"] .code-header {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .code-lang {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .code-lang::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #0175C2;
+            border-radius: 50%;
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-btn {
+            background: var(--bg-tertiary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .code-content {
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #FF7B72; }
+        .string { color: #A5D6FF; }
+        .comment { color: #8B949E; font-style: italic; }
+        .function { color: #D2A8FF; }
+        .class { color: #FFA657; }
+        .type { color: #79C0FF; }
+        .number { color: #79C0FF; }
+        .operator { color: #FF7B72; }
+
+        [data-theme="light"] .keyword { color: #D73A49; }
+        [data-theme="light"] .string { color: #032F62; }
+        [data-theme="light"] .comment { color: #6A737D; }
+        [data-theme="light"] .function { color: #6F42C1; }
+        [data-theme="light"] .class { color: #E36209; }
+        [data-theme="light"] .type { color: #005CC5; }
+        [data-theme="light"] .number { color: #005CC5; }
+        [data-theme="light"] .operator { color: #D73A49; }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--gradient-1);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        /* Visual Diagram */
+        .diagram {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .tree-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tree-node {
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            min-width: 150px;
+        }
+
+        .tree-children {
+            display: flex;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .tree-children::before {
+            content: '';
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 1rem;
+            background: var(--primary);
+        }
+
+        .tree-child {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .tree-child::before {
+            content: '';
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 1rem;
+            background: var(--primary);
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: linear-gradient(135deg, rgba(0, 191, 165, 0.1) 0%, rgba(1, 117, 194, 0.1) 100%);
+            border: 1px solid var(--secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .tip-box h4 {
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-question {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .quiz-option {
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+        }
+
+        .quiz-option.correct {
+            background: rgba(102, 187, 106, 0.2);
+            border-color: var(--success);
+        }
+
+        .quiz-option.wrong {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: var(--accent);
+        }
+
+        .quiz-option-letter {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* LeetCode Links */
+        .leetcode-section {
+            background: linear-gradient(135deg, #FFA116 0%, #FF6B00 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .leetcode-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .leetcode-icon {
+            font-size: 2.5rem;
+        }
+
+        .leetcode-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .leetcode-link {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 1rem;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .leetcode-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-sidebar {
+                width: 100%;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .section-header {
+                padding: 1rem;
+            }
+
+            .section-body {
+                padding: 1rem;
+            }
+
+            .code-content {
+                padding: 1rem;
+            }
+
+            .tree-children {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Interactive Demo */
+        .demo-box {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            background: var(--gradient-1);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .demo-output {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            min-height: 100px;
+            color: var(--text-secondary);
+        }
+
+        .demo-output-line {
+            margin-bottom: 0.5rem;
+            animation: typeIn 0.3s ease;
+        }
+
+        @keyframes typeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Comparison Table */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .comparison-card:hover {
+            border-color: var(--primary);
+        }
+
+        .comparison-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Quick Nav */
+        .quick-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        .quick-nav-btn {
+            background: var(--bg-tertiary);
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .quick-nav-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .summary-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .summary-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-card-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🎯</span>
+                <span>Dart OOP Guide</span>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Toggle -->
+    <button class="nav-toggle" onclick="toggleNav()" title="القائمة">
+        ☰
+    </button>
+
+    <!-- Navigation Sidebar -->
+    <nav class="nav-sidebar" id="navSidebar">
+        <div class="nav-title">
+            📑 فهرس المحتويات
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="#intro" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">🌟</span>
+                    مقدمة
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#classes" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">1</span>
+                    الفصول والكائنات
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#properties" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">2</span>
+                    الخصائص والدوال
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#constructors" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">3</span>
+                    البناء (Constructors)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#encapsulation" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">4</span>
+                    التغليف (Encapsulation)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#arrow" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">5</span>
+                    الدوال السهمية
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#inheritance" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">6</span>
+                    الوراثة (Inheritance)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#polymorphism" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">7</span>
+                    تعدد الأشكال
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#abstract" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">8</span>
+                    الفصول المجردة
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#interfaces" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">9</span>
+                    الواجهات (Interfaces)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#mixins" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">10</span>
+                    الخلطات (Mixins)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#named-constructors" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">11</span>
+                    الفصول المسماة
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#late" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">12</span>
+                    الكلمة المؤجلة (Late)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#object" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">13</span>
+                    الفصول الكائنية
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#enums" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">14</span>
+                    التعدادات (Enums)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#leetcode" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">💪</span>
+                    تدرب على LeetCode
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#quiz" class="nav-link" onclick="closeNav()">
+                    <span class="nav-number">📝</span>
+                    اختبر نفسك
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="intro">
+        <div class="hero-badge">
+            🎁 هدية رمضان للمطورين
+        </div>
+        <h1>
+            دليل <span>Dart OOP</span><br>
+            الكامل
+        </h1>
+        <p class="hero-subtitle">
+            مرجع شامل ومبسط لمفاهيم البرمجة كائنية التوجه في Dart بالعربي<br>
+            مع أمثلة عملية وتحضير كامل للمقابلات التقنية
+        </p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">موضوع أساسي</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">مثال عملي</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">قيمة مجانية</div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            ↓ اسحب للأسفل
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Section 1: Classes & Objects -->
+        <section class="section" id="classes" data-section="1">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🏗️</div>
+                    <div class="section-info">
+                        <h2>الفصول والكائنات (Classes & Objects)</h2>
+                        <p>المفاهيم الأساسية في البرمجة كائنية التوجه</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🎯 المفهوم الأساسي</h3>
+                        <p><strong>الفصل (Class)</strong> = القالب أو البلوبريت (Blueprint)<br>
+                        <strong>الكائن (Object)</strong> = نسخة حقيقية من الفصل</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h3>🏗️ خطوات إنشاء كائن:</h3>
+                        <p>1. حدد الفصيلة (Class)<br>
+                        2. حدد السمات (Attributes/Properties)<br>
+                        3. حدد السلوكيات (Methods)</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// تعريف الفصل (القالب)</span>
+<span class="keyword">class</span> <span class="class">Alien</span> {
+  <span class="comment">// الخصائص (Properties)</span>
+  <span class="type">double</span>? height;           <span class="comment">// قد يكون null</span>
+  <span class="type">double</span> numberOfArms = <span class="number">2</span>;  <span class="comment">// قيمة افتراضية</span>
+  
+  <span class="comment">// الدالة (Method) = السلوك</span>
+  <span class="type">void</span> <span class="function">run</span>() {
+    <span class="function">print</span>(<span class="string">'Alien can run with </span>$numberOfArms<span class="string"> arms'</span>);
+  }
+  
+  <span class="comment">// البناء الافتراضي (Default Constructor)</span>
+  <span class="class">Alien</span>() {
+    <span class="function">print</span>(<span class="string">'Alien created!'</span>);
+  }
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="comment">// إنشاء كائن (Object) من الفصل</span>
+  <span class="class">Alien</span> stitch = <span class="class">Alien</span>();
+  
+  <span class="comment">// تعيين القيم</span>
+  stitch.height = <span class="number">49</span>;
+  stitch.numberOfArms = <span class="number">3</span>;
+  
+  <span class="comment">// استدعاء الدالة</span>
+  stitch.<span class="function">run</span>();  <span class="comment">// Output: Alien can run with 3 arms</span>
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="concept-box">
+                        <h3>💡 مثال حياتي:</h3>
+                        <p><strong>الفصل</strong> = تصميم السيارة (Blueprint)<br>
+                        <strong>الكائن</strong> = سيارتك الفعلية في الشارع</p>
+                    </div>
+
+                    <div class="demo-box">
+                        <h4>🎮 جرب بنفسك:</h4>
+                        <div class="demo-controls">
+                            <button class="demo-btn" onclick="runDemo('alien')">▶️ تشغيل الكود</button>
+                            <button class="demo-btn" onclick="clearDemo('alien')">🗑️ مسح</button>
+                        </div>
+                        <div class="demo-output" id="alien-output">
+                            اضغط "تشغيل الكود" لرؤية النتيجة...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Properties & Methods -->
+        <section class="section" id="properties" data-section="2">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">📦</div>
+                    <div class="section-info">
+                        <h2>الخصائص والدوال (Properties & Methods)</h2>
+                        <p>أنواع الخصائص وكيفية تعريف الدوال</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <h3>📌 أنواع الخصائص:</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>النوع</th>
+                                    <th>الشرح</th>
+                                    <th>المثال</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>nullable</code></td>
+                                    <td>قد تكون null</td>
+                                    <td><code>double? height</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>non-nullable</code></td>
+                                    <td>يجب أن تحتوي قيمة</td>
+                                    <td><code>double numberOfArms = 2</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>final</code></td>
+                                    <td>ثابتة بعد التعيين</td>
+                                    <td><code>final String name</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>late</code></td>
+                                    <td>تأجيل التهيئة</td>
+                                    <td><code>late double weight</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>🔧 الدوال (Methods):</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Human</span> {
+  <span class="type">double</span>? height;
+  
+  <span class="comment">// دالة عادية</span>
+  <span class="type">void</span> <span class="function">walk</span>() {
+    <span class="function">print</span>(<span class="string">'Human is walking'</span>);
+  }
+  
+  <span class="comment">// دالة مع معاملات</span>
+  <span class="type">void</span> <span class="function">grow</span>(<span class="type">double</span> newHeight) {
+    height = newHeight;
+    <span class="function">print</span>(<span class="string">'New height: </span>$height<span class="string">'</span>);
+  }
+  
+  <span class="comment">// دالة ترجع قيمة</span>
+  <span class="type">String</span> <span class="function">describe</span>() {
+    <span class="keyword">return</span> <span class="string">'Human with height </span>$height<span class="string"> cm'</span>;
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Constructors -->
+        <section class="section" id="constructors" data-section="3">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🏗️</div>
+                    <div class="section-info">
+                        <h2>البناء (Constructors)</h2>
+                        <p>أنواع Constructors في Dart</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🏗️ ما هو Constructor؟</h3>
+                        <p>هو دالة خاصة <strong>تُنشئ</strong> الكائن عند إنشائه. <strong>لا يمكن أن يكون لها نوع إرجاع</strong>.</p>
+                    </div>
+
+                    <h3>1. البناء الافتراضي (Default Constructor):</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Alien</span> {
+  <span class="class">Alien</span>() {
+    <span class="function">print</span>(<span class="string">'Default constructor called'</span>);
+  }
+}</pre>
+                        </div>
+                    </div>
+
+                    <h3>2. البناء المُعلَّم (Parameterized Constructor):</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// الطريقة التقليدية</span>
+<span class="keyword">class</span> <span class="class">Human</span> {
+  <span class="type">double</span>? height;
+  
+  <span class="class">Human</span>(<span class="type">double</span> height) {
+    <span class="keyword">this</span>.height = height;  <span class="comment">// this يشير للخاصية في الكلاس</span>
+  }
+}
+
+<span class="comment">// الطريقة المختصرة (الأفضل!)</span>
+<span class="keyword">class</span> <span class="class">Human</span> {
+  <span class="type">double</span> height;
+  
+  <span class="class">Human</span>(<span class="keyword">this</span>.height);  <span class="comment">// مباشرة!</span>
+}</pre>
+                        </div>
+                    </div>
+
+                    <h3>3. البناء المُسمى (Named Constructor):</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Circle</span> {
+  <span class="type">double</span> radius;
+  <span class="type">double</span> x;
+  <span class="type">double</span> y;
+  
+  <span class="comment">// البناء المُسمى</span>
+  <span class="class">Circle</span>.origin({<span class="keyword">required</span> <span class="keyword">this</span>.radius}) 
+      : x = <span class="number">0</span>, 
+        y = <span class="number">0</span>;  <span class="comment">// initializer list</span>
+  
+  <span class="class">Circle</span>.custom({<span class="keyword">required</span> <span class="keyword">this</span>.radius, <span class="keyword">required</span> <span class="keyword">this</span>.x, <span class="keyword">required</span> <span class="keyword">this</span>.y});
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="keyword">var</span> c1 = <span class="class">Circle</span>.origin(radius: <span class="number">5.0</span>);      <span class="comment">// x=0, y=0</span>
+  <span class="keyword">var</span> c2 = <span class="class">Circle</span>.custom(radius: <span class="number">5.0</span>, x: <span class="number">10</span>, y: <span class="number">20</span>);
+}</pre>
+                        </div>
+                    </div>
+
+                    <h3>4. البناء المُسمى مع <code>super</code>:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Animal</span> {
+  <span class="type">double</span> weight;
+  <span class="class">Animal</span>({<span class="keyword">required</span> <span class="keyword">this</span>.weight});
+}
+
+<span class="keyword">class</span> <span class="class">Lion</span> <span class="keyword">extends</span> <span class="class">Animal</span> {
+  <span class="comment">// الطريقة المختصرة</span>
+  <span class="class">Lion</span>({<span class="keyword">required</span> <span class="keyword">super</span>.weight});
+  
+  <span class="comment">// أو الطريقة الطويلة</span>
+  <span class="class">Lion</span>.manual({<span class="keyword">required</span> <span class="type">double</span> weight}) : <span class="keyword">super</span>(weight: weight);
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Encapsulation -->
+        <section class="section" id="encapsulation" data-section="4">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🔒</div>
+                    <div class="section-info">
+                        <h2>التغليف (Encapsulation)</h2>
+                        <p>حماية البيانات باستخدام Getters و Setters</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🔒 المفهوم:</h3>
+                        <p>إخفاء البيانات الحساسة داخل الفصل وجعل الوصول إليها من خلال <strong>واجهة آمنة</strong> (Setters & Getters).</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h3>🛡️ لماذا؟</h3>
+                        <p>• حماية البيانات من التعديل العشوائي<br>
+                        • إضافة شروط (Validation) على البيانات الداخلة<br>
+                        • تنسيق البيانات عند استرجاعها</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">BankAccount</span> {
+  <span class="comment">// الخاصية الخاصة (Private) - تبدأ بـ _</span>
+  <span class="type">double</span> _balance = <span class="number">0</span>;
+  
+  <span class="comment">// Getter: لقراءة القيمة (قد يتضمن تنسيق)</span>
+  <span class="type">double</span> <span class="keyword">get</span> balance => _balance;
+  
+  <span class="comment">// Setter: لتعديل القيمة (مع validation)</span>
+  <span class="keyword">set</span> balance(<span class="type">double</span> amount) {
+    <span class="keyword">if</span> (amount >= <span class="number">0</span>) {
+      _balance = amount;
+    } <span class="keyword">else</span> {
+      <span class="function">print</span>(<span class="string">'Error: Balance cannot be negative!'</span>);
+    }
+  }
+  
+  <span class="comment">// Getter مع تنسيق</span>
+  <span class="type">String</span> <span class="keyword">get</span> formattedBalance => <span class="string">'\$$_balance USD'</span>;
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="keyword">var</span> account = <span class="class">BankAccount</span>();
+  
+  <span class="comment">// استخدام Setter</span>
+  account.balance = <span class="number">1000</span>;      <span class="comment">// ✓ يعمل</span>
+  account.balance = <span class="number">-500</span>;      <span class="comment">// ✗ Error message</span>
+  
+  <span class="comment">// استخدام Getter</span>
+  <span class="function">print</span>(account.balance);           <span class="comment">// 1000</span>
+  <span class="function">print</span>(account.formattedBalance);  <span class="comment">// $1000 USD</span>
+}</pre>
+                        </div>
+                    </div>
+
+                    <h3>🎯 مثال عملي (تنسيق التاريخ):</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Person</span> {
+  <span class="type">String</span> _firstName;
+  <span class="type">String</span> _lastName;
+  <span class="class">DateTime</span> _birthDate;
+  
+  <span class="class">Person</span>(<span class="keyword">this</span>._firstName, <span class="keyword">this</span>._lastName, <span class="keyword">this</span>._birthDate);
+  
+  <span class="comment">// Getter يدمج الاسمين</span>
+  <span class="type">String</span> <span class="keyword">get</span> fullName => <span class="string">'$_firstName $_lastName'</span>;
+  
+  <span class="comment">// Getter يحسب العمر</span>
+  <span class="type">int</span> <span class="keyword">get</span> age => <span class="class">DateTime</span>.now().year - _birthDate.year;
+  
+  <span class="comment">// Getter ينسق التاريخ</span>
+  <span class="type">String</span> <span class="keyword">get</span> formattedBirthDate => 
+      <span class="string">'${_birthDate.day}/${_birthDate.month}/${_birthDate.year}'</span>;
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Arrow Functions -->
+        <section class="section" id="arrow" data-section="5">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🚀</div>
+                    <div class="section-info">
+                        <h2>الدوال السهمية (Arrow Functions)</h2>
+                        <p>اختصار للدوال ذات السطر الواحد</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🚀 المفهوم:</h3>
+                        <p>اختصار للدوال التي تحتوي على <strong>سطر واحد فقط</strong>.</p>
+                    </div>
+
+                    <h3>✏️ الصيغة:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// بدلاً من:</span>
+<span class="type">int</span> <span class="function">add</span>(<span class="type">int</span> a, <span class="type">int</span> b) {
+  <span class="keyword">return</span> a + b;
+}
+
+<span class="comment">// اكتب:</span>
+<span class="type">int</span> <span class="function">add</span>(<span class="type">int</span> a, <span class="type">int</span> b) => a + b;</pre>
+                        </div>
+                    </div>
+
+                    <h3>💡 أمثلة:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Calculator</span> {
+  <span class="comment">// دالة عادية</span>
+  <span class="type">int</span> <span class="function">multiply</span>(<span class="type">int</span> a, <span class="type">int</span> b) => a * b;
+  
+  <span class="comment">// void function</span>
+  <span class="type">void</span> <span class="function">greet</span>(<span class="type">String</span> name) => <span class="function">print</span>(<span class="string">'Hello, </span>$name<span class="string">!'</span>);
+  
+  <span class="comment">// getter كدالة سهمية</span>
+  <span class="type">String</span> <span class="keyword">get</span> info => <span class="string">'Calculator App'</span>;
+}
+
+<span class="comment">// في الوراثة</span>
+<span class="keyword">class</span> <span class="class">Cat</span> <span class="keyword">extends</span> <span class="class">Animal</span> {
+  <span class="keyword">@override</span>
+  <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Cat eats fish'</span>);  <span class="comment">// سطر واحد = arrow function</span>
+  
+  <span class="keyword">@override</span>
+  <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'Meow!'</span>);
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Inheritance -->
+        <section class="section" id="inheritance" data-section="6">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🧬</div>
+                    <div class="section-info">
+                        <h2>الوراثة (Inheritance)</h2>
+                        <p>إنشاء فصول جديدة ترث من فصول أخرى</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🧬 المفهوم:</h3>
+                        <p>إنشاء فصل جديد (Child) يأخذ كل خصائص ودوال فصل آخر (Parent)، مع إضافة خصائص جديدة.</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h3>🔑 الكلمات المفتاحية:</h3>
+                        <p>• <code>extends</code> : للوراثة<br>
+                        • <code>super</code> : للإشارة للأب<br>
+                        • <code>@override</code> : لإعادة تعريف دالة (تلميح للقارئ)</p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>🌳 شجرة الوراثة:</h4>
+                        <div class="tree-diagram">
+                            <div class="tree-node">Animal (الأب)</div>
+                            <div class="tree-children">
+                                <div class="tree-child">Lion<br><small>(roar())</small></div>
+                                <div class="tree-child">Dog<br><small>(bark())</small></div>
+                                <div class="tree-child">Cat<br><small>(meow())</small></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// الفصل الأب (Parent/Super Class)</span>
+<span class="keyword">class</span> <span class="class">Animal</span> {
+  <span class="type">int</span> limbs = <span class="number">4</span>;
+  <span class="type">double</span>? weight;
+  
+  <span class="class">Animal</span>({<span class="keyword">required</span> <span class="keyword">this</span>.weight});
+  
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Animal is eating'</span>);
+  <span class="type">void</span> <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'Some sound'</span>);
+}
+
+<span class="comment">// الفصل الابن (Child Class)</span>
+<span class="keyword">class</span> <span class="class">Lion</span> <span class="keyword">extends</span> <span class="class">Animal</span> {
+  <span class="comment">// استدعاء constructor الأب</span>
+  <span class="class">Lion</span>({<span class="keyword">required</span> <span class="keyword">super</span>.weight});
+  
+  <span class="comment">// دالة خاصة بالأسد</span>
+  <span class="type">void</span> <span class="function">roar</span>() => <span class="function">print</span>(<span class="string">'ROAR!'</span>);
+  
+  <span class="comment">// إعادة تعريف دالة من الأب</span>
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Lion eats meat'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'ROAR!!!'</span>);
+}
+
+<span class="keyword">class</span> <span class="class">Dog</span> <span class="keyword">extends</span> <span class="class">Animal</span> {
+  <span class="class">Dog</span>({<span class="keyword">required</span> <span class="keyword">super</span>.weight});
+  
+  <span class="type">void</span> <span class="function">bark</span>() => <span class="function">print</span>(<span class="string">'Woof!'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Dog eats meat'</span>);
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="keyword">var</span> lion = <span class="class">Lion</span>(weight: <span class="number">190</span>);
+  lion.<span class="function">eat</span>();        <span class="comment">// Lion eats meat (من الابن)</span>
+  lion.<span class="function">roar</span>();       <span class="comment">// ROAR! (خاص بالابن)</span>
+  <span class="function">print</span>(lion.limbs); <span class="comment">// 4 (ورثها من الأب)</span>
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="demo-box">
+                        <h4>🎮 جرب بنفسك:</h4>
+                        <div class="demo-controls">
+                            <button class="demo-btn" onclick="runDemo('inheritance')">▶️ تشغيل الكود</button>
+                            <button class="demo-btn" onclick="clearDemo('inheritance')">🗑️ مسح</button>
+                        </div>
+                        <div class="demo-output" id="inheritance-output">
+                            اضغط "تشغيل الكود" لرؤية النتيجة...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Polymorphism -->
+        <section class="section" id="polymorphism" data-section="7">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🎭</div>
+                    <div class="section-info">
+                        <h2>تعدد الأشكال (Polymorphism)</h2>
+                        <p>نفس الواجهة، سلوك مختلف</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🎭 المفهوم:</h3>
+                        <p><strong>نفس الواجهة، سلوك مختلف</strong><br>
+                        القدرة على معاملة كائنات من فصول مختلفة بشكل موحد عبر واجهة مشتركة (الأب).</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="type">void</span> <span class="function">main</span>() {
+  <span class="comment">// تعدد الأشكال: قائمة تحتوي على أنواع مختلفة</span>
+  <span class="class">List</span><<span class="class">Animal</span>> zoo = [
+    <span class="class">Lion</span>(weight: <span class="number">190</span>),
+    <span class="class">Dog</span>(weight: <span class="number">30</span>),
+    <span class="class">Cat</span>(weight: <span class="number">5</span>),
+  ];
+  
+  <span class="comment">// نفس الدالة، سلوك مختلف لكل كائن!</span>
+  <span class="keyword">for</span> (<span class="keyword">var</span> animal <span class="keyword">in</span> zoo) {
+    animal.<span class="function">eat</span>();  <span class="comment">// كل واحد يأكل بطريقته</span>
+    animal.<span class="function">makeVoice</span>();  <span class="comment">// كل واحد يصوت بطريقته</span>
+  }
+}</pre>
+                        </div>
+                    </div>
+
+                    <h3>🔍 التحقق من النوع (Type Checking):</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">for</span> (<span class="keyword">var</span> animal <span class="keyword">in</span> zoo) {
+  animal.<span class="function">eat</span>();
+  
+  <span class="comment">// التحقق من النوع قبل استدعاء دالة خاصة</span>
+  <span class="keyword">if</span> (animal <span class="keyword">is</span> <span class="class">Lion</span>) {
+    animal.<span class="function">roar</span>();  <span class="comment">// متاحة فقط للأسد</span>
+  } <span class="keyword">else if</span> (animal <span class="keyword">is</span> <span class="class">Dog</span>) {
+    animal.<span class="function">bark</span>();  <span class="comment">// متاحة فقط للكلب</span>
+  } <span class="keyword">else if</span> (animal <span class="keyword">is</span> <span class="class">Cat</span>) {
+    animal.<span class="function">meow</span>();
+  }
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4>💡 الفائدة:</h4>
+                        <p>يمكنك إضافة <code>Elephant</code> أو <code>Bird</code> لاحقاً دون تعديل الكود الذي يتعامل مع <code>List&lt;Animal&gt;</code>!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Abstract Classes -->
+        <section class="section" id="abstract" data-section="8">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🎨</div>
+                    <div class="section-info">
+                        <h2>الفصول المجردة (Abstract Classes)</h2>
+                        <p>قوالب إجبارية للفصول الأبناء</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🎨 المفهوم:</h3>
+                        <p>فصل <strong>لا يمكن إنشاء كائنات منه مباشرة</strong>، يُستخدم كقالب لتحديد <strong>ما يجب</strong> أن تفعله الفصول الأبناء.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// فصل مجرد - لا يمكن: var a = Animal();</span>
+<span class="keyword">abstract class</span> <span class="class">Animal</span> {
+  <span class="type">int</span>? age;
+  <span class="type">String</span>? name;
+  <span class="type">double</span>? weight;
+  
+  <span class="comment">// Constructor عادي</span>
+  <span class="class">Animal</span>({<span class="keyword">required</span> <span class="keyword">this</span>.age, <span class="keyword">required</span> <span class="keyword">this</span>.name, <span class="keyword">required</span> <span class="keyword">this</span>.weight});
+  
+  <span class="comment">// دالة مجردة (بدون body) - يجب تنفيذها في الأبناء</span>
+  <span class="type">void</span> <span class="function">eat</span>();
+  <span class="type">void</span> <span class="function">makeVoice</span>();
+  
+  <span class="comment">// دالة عادية (مع body) - يمكن استخدامها مباشرة أو إعادة تعريفها</span>
+  <span class="type">void</span> <span class="function">sleep</span>() => <span class="function">print</span>(<span class="string">'$name is sleeping'</span>);
+}
+
+<span class="keyword">class</span> <span class="class">Cat</span> <span class="keyword">extends</span> <span class="class">Animal</span> {
+  <span class="type">String</span>? voice;
+  
+  <span class="class">Cat</span>({
+    <span class="keyword">required</span> <span class="keyword">super</span>.age,
+    <span class="keyword">required</span> <span class="keyword">super</span>.name,
+    <span class="keyword">required</span> <span class="keyword">super</span>.weight,
+    <span class="keyword">this</span>.voice,
+  });
+  
+  <span class="comment">// يجب تنفيذ الدوال المجردة!</span>
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Cat eats fish'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'Voice: </span>$voice<span class="string">'</span>);
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="comment">// Animal a = Animal(); // ❌ خطأ! لا يمكن إنشاء كائن من فصل مجرد</span>
+  
+  <span class="class">Cat</span> cat = <span class="class">Cat</span>(age: <span class="number">3</span>, name: <span class="string">'Kitty'</span>, weight: <span class="number">4.5</span>, voice: <span class="string">'Meow'</span>);
+  cat.<span class="function">eat</span>();        <span class="comment">// Cat eats fish</span>
+  cat.<span class="function">sleep</span>();      <span class="comment">// Kitty is sleeping (ورثها من الأب)</span>
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Interfaces -->
+        <section class="section" id="interfaces" data-section="9">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">📝</div>
+                    <div class="section-info">
+                        <h2>الواجهات (Interfaces/Implements)</h2>
+                        <p>الفرق بين extends و implements</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <h3>📝 الفرق بين <code>extends</code> و <code>implements</code>:</h3>
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <h4>🔹 extends</h4>
+                            <p>• وراثة واحدة فقط<br>
+                            • ترث التنفيذ والخصائص<br>
+                            • <code>super</code> متاح</p>
+                        </div>
+                        <div class="comparison-card">
+                            <h4>🔸 implements</h4>
+                            <p>• يمكن تنفيذ عدة واجهات<br>
+                            • تُجبرك على إعادة تنفيذ <strong>كل شيء</strong><br>
+                            • <code>super</code> <strong>غير</strong> متاح</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">abstract class</span> <span class="class">Animal</span> {
+  <span class="type">int</span>? age;
+  <span class="type">void</span> <span class="function">eat</span>();
+  <span class="type">void</span> <span class="function">makeVoice</span>();
+}
+
+<span class="comment">// implements = أنا أتعهد بأنني سأنفذ كل شيء في Animal بنفسي</span>
+<span class="keyword">class</span> <span class="class">Lion</span> <span class="keyword">implements</span> <span class="class">Animal</span> {
+  <span class="keyword">@override</span>
+  <span class="type">int</span>? age;  <span class="comment">// يجب تعريفها من جديد!</span>
+  
+  <span class="keyword">@override</span>
+  <span class="type">String</span>? name;  <span class="comment">// حتى لو لم تكن في Animal الأصلي!</span>
+  
+  <span class="type">double</span>? weight;
+  
+  <span class="class">Lion</span>({<span class="keyword">this</span>.age, <span class="keyword">this</span>.name, <span class="keyword">this</span>.weight});
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Lion eats meat'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'Roar!'</span>);
+}</pre>
+                        </div>
+                    </div>
+
+                    <h3>🔗 تنفيذ عدة واجهات:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">abstract class</span> <span class="class">Flyable</span> {
+  <span class="type">void</span> <span class="function">fly</span>();
+}
+
+<span class="keyword">abstract class</span> <span class="class">Swimmable</span> {
+  <span class="type">void</span> <span class="function">swim</span>();
+}
+
+<span class="comment">// Duck يرث من Animal وينفذ واجهتين</span>
+<span class="keyword">class</span> <span class="class">Duck</span> <span class="keyword">extends</span> <span class="class">Animal</span> <span class="keyword">implements</span> <span class="class">Flyable</span>, <span class="class">Swimmable</span> {
+  <span class="class">Duck</span>({<span class="keyword">required</span> <span class="keyword">super</span>.age, <span class="keyword">required</span> <span class="keyword">super</span>.name, <span class="keyword">required</span> <span class="keyword">super</span>.weight});
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Duck eats bread'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'Quack!'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">fly</span>() => <span class="function">print</span>(<span class="string">'Duck is flying'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">swim</span>() => <span class="function">print</span>(<span class="string">'Duck is swimming'</span>);
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Mixins -->
+        <section class="section" id="mixins" data-section="10">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🎨</div>
+                    <div class="section-info">
+                        <h2>الخلطات (Mixins)</h2>
+                        <p>إعادة استخدام الكود بين فصول غير مرتبطة</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🎨 المفهوم:</h3>
+                        <p>طريقة لإعادة استخدام الكود بين فصول <strong>غير مرتبطة بشجرة وراثة واحدة</strong>.</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h3>📋 الشروط:</h3>
+                        <p>• تُعرف بـ <code>mixin</code> بدلاً من <code>class</code><br>
+                        • لا يمكن إنشاء كائنات منها<br>
+                        • تُستخدم مع <code>with</code></p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// خلطة 1: للحيوانات الثديية</span>
+<span class="keyword">mixin</span> <span class="class">MammalMixin</span> {
+  <span class="type">void</span> <span class="function">feedMilk</span>() => <span class="function">print</span>(<span class="string">'Feeding milk to baby'</span>);
+  <span class="type">void</span> <span class="function">hasHair</span>() => <span class="function">print</span>(<span class="string">'Has hair/fur'</span>);
+}
+
+<span class="comment">// خلطة 2: للحيوانات الأليفة</span>
+<span class="keyword">mixin</span> <span class="class">PetMixin</span> {
+  <span class="type">void</span> <span class="function">play</span>() => <span class="function">print</span>(<span class="string">'Playing with owner'</span>);
+  <span class="type">void</span> <span class="function">cuddle</span>() => <span class="function">print</span>(<span class="string">'Cuddling...'</span>);
+}
+
+<span class="comment">// خلطة 3: للزواحف</span>
+<span class="keyword">mixin</span> <span class="class">ReptileMixin</span> {
+  <span class="type">void</span> <span class="function">layEggs</span>() => <span class="function">print</span>(<span class="string">'Laying eggs'</span>);
+  <span class="type">void</span> <span class="function">coldBlooded</span>() => <span class="function">print</span>(<span class="string">'Cold blooded'</span>);
+}
+
+<span class="comment">// استخدام الخلطات</span>
+<span class="keyword">class</span> <span class="class">Cat</span> <span class="keyword">extends</span> <span class="class">Animal</span> <span class="keyword">with</span> <span class="class">MammalMixin</span>, <span class="class">PetMixin</span> {
+  <span class="class">Cat</span>({<span class="keyword">required</span> <span class="keyword">super</span>.age, <span class="keyword">required</span> <span class="keyword">super</span>.name, <span class="keyword">required</span> <span class="keyword">super</span>.weight});
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Cat eats fish'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'Meow'</span>);
+}
+
+<span class="keyword">class</span> <span class="class">Snake</span> <span class="keyword">extends</span> <span class="class">Animal</span> <span class="keyword">with</span> <span class="class">ReptileMixin</span>, <span class="class">PetMixin</span> {
+  <span class="comment">// ⚠️ الأولوية للخلطة الأخيرة في حالة التعارض!</span>
+  
+  <span class="class">Snake</span>({<span class="keyword">required</span> <span class="keyword">super</span>.age, <span class="keyword">required</span> <span class="keyword">super</span>.name, <span class="keyword">required</span> <span class="keyword">super</span>.weight});
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">eat</span>() => <span class="function">print</span>(<span class="string">'Snake eats mice'</span>);
+  
+  <span class="keyword">@override</span>
+  <span class="type">void</span> <span class="function">makeVoice</span>() => <span class="function">print</span>(<span class="string">'Hiss'</span>);
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="keyword">var</span> cat = <span class="class">Cat</span>(age: <span class="number">2</span>, name: <span class="string">'Whiskers'</span>, weight: <span class="number">4</span>);
+  cat.<span class="function">eat</span>();        <span class="comment">// من Cat</span>
+  cat.<span class="function">feedMilk</span>();   <span class="comment">// من MammalMixin</span>
+  cat.<span class="function">play</span>();       <span class="comment">// من PetMixin</span>
+  
+  <span class="keyword">var</span> snake = <span class="class">Snake</span>(age: <span class="number">1</span>, name: <span class="string">'Slither'</span>, weight: <span class="number">2</span>);
+  snake.<span class="function">layEggs</span>();  <span class="comment">// من ReptileMixin</span>
+  snake.<span class="function">play</span>();     <span class="comment">// من PetMixin (نعم، ثعبان أليف!)</span>
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4>🎯 متى تستخدم Mixins؟</h4>
+                        <p>عندما تريد إضافة سلوك مشترك لفصول لا تشترك في نفس سلسلة الوراثة.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 11: Named Constructors -->
+        <section class="section" id="named-constructors" data-section="11">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">🏷️</div>
+                    <div class="section-info">
+                        <h2>الفصول المسماة (Named Constructors)</h2>
+                        <p>عدة طرق لإنشاء الكائن</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>🏷️ المفهوم:</h3>
+                        <p>عدة طرق لإنشاء الكائن مع سيناريوهات مختلفة.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Rectangle</span> {
+  <span class="type">double</span> width;
+  <span class="type">double</span> height;
+  
+  <span class="comment">// البناء الافتراضي</span>
+  <span class="class">Rectangle</span>(<span class="keyword">this</span>.width, <span class="keyword">this</span>.height);
+  
+  <span class="comment">// بناء مُسمى: مربع (طول = عرض)</span>
+  <span class="class">Rectangle</span>.square(<span class="type">double</span> side) 
+      : width = side, 
+        height = side;
+  
+  <span class="comment">// بناء مُسمى: مستطيل فارغ</span>
+  <span class="class">Rectangle</span>.zero() 
+      : width = <span class="number">0</span>, 
+        height = <span class="number">0</span>;
+  
+  <span class="comment">// بناء مُسمى: من مساحة معينة ونسبة عرض/طول</span>
+  <span class="class">Rectangle</span>.fromArea(<span class="type">double</span> area, <span class="type">double</span> ratio) 
+      : width = <span class="function">sqrt</span>(area * ratio), 
+        height = <span class="function">sqrt</span>(area / ratio);
+  
+  <span class="type">double</span> <span class="keyword">get</span> area => width * height;
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="keyword">var</span> r1 = <span class="class">Rectangle</span>(<span class="number">10</span>, <span class="number">20</span>);
+  <span class="keyword">var</span> r2 = <span class="class">Rectangle</span>.square(<span class="number">15</span>);  <span class="comment">// مربع 15×15</span>
+  <span class="keyword">var</span> r3 = <span class="class">Rectangle</span>.zero();       <span class="comment">// 0×0</span>
+  <span class="keyword">var</span> r4 = <span class="class">Rectangle</span>.fromArea(<span class="number">100</span>, <span class="number">2</span>);  <span class="comment">// مساحة 100، النسبة 2:1</span>
+  
+  <span class="function">print</span>(<span class="string">'r2 area: </span>${r2.area}<span class="string">'</span>);  <span class="comment">// 225</span>
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 12: Late Keyword -->
+        <section class="section" id="late" data-section="12">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">⏰</div>
+                    <div class="section-info">
+                        <h2>الكلمة المؤجلة (Late Keyword)</h2>
+                        <p>تأجيل التهيئة إلى أول استخدام</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>⏰ المفهوم:</h3>
+                        <p>تأجيل التهيئة إلى أول استخدام (Lazy Initialization).</p>
+                    </div>
+
+                    <div class="concept-box">
+                        <h3>📝 حالات الاستخدام:</h3>
+                        <p>1. <strong>التعهد بالتهيئة لاحقاً</strong> (Non-nullable لكن ليس الآن)<br>
+                        2. <strong>التهيئة الكسولة</strong> (Lazy) - لا تُنفذ حتى تحتاجها</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Circle</span> {
+  <span class="type">double</span> radius;
+  
+  <span class="comment">// late: سأهيئها لاحقاً، لكنها non-nullable</span>
+  <span class="keyword">late</span> <span class="type">int</span> x;
+  <span class="keyword">late</span> <span class="type">int</span> y;
+  
+  <span class="comment">// بناء مُسمى يهيئ المتغيرات المتأخرة</span>
+  <span class="class">Circle</span>.origin({<span class="keyword">required</span> <span class="keyword">this</span>.radius}) {
+    x = <span class="number">0</span>;
+    y = <span class="number">0</span>;
+  }
+  
+  <span class="class">Circle</span>.custom({<span class="keyword">required</span> <span class="keyword">this</span>.radius, <span class="keyword">required</span> <span class="type">int</span> xPos, <span class="keyword">required</span> <span class="type">int</span> yPos}) {
+    x = xPos;
+    y = yPos;
+  }
+  
+  <span class="type">void</span> <span class="function">draw</span>() {
+    <span class="function">print</span>(<span class="string">'Drawing circle at (</span>$x<span class="string">, </span>$y<span class="string">) with radius </span>$radius<span class="string">'</span>);
+  }
+}</pre>
+                        </div>
+                    </div>
+
+                    <h3>مثال على Lazy Initialization:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// مثال على Lazy Initialization</span>
+<span class="keyword">class</span> <span class="class">Database</span> {
+  <span class="comment">// لن تُحمل إلا عند أول استخدام!</span>
+  <span class="keyword">late final</span> <span class="type">String</span> _connection = <span class="function">_initializeConnection</span>();
+  
+  <span class="type">String</span> <span class="function">_initializeConnection</span>() {
+    <span class="function">print</span>(<span class="string">'Connecting to database... (expensive operation)'</span>);
+    <span class="keyword">return</span> <span class="string">'Connected!'</span>;
+  }
+  
+  <span class="type">void</span> <span class="function">query</span>() {
+    <span class="function">print</span>(<span class="string">'Querying: </span>$_connection<span class="string">'</span>);  <span class="comment">// هنا تتم التهيئة</span>
+  }
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="keyword">var</span> db = <span class="class">Database</span>();  <span class="comment">// لا يطبع شيئاً</span>
+  <span class="function">print</span>(<span class="string">'Object created'</span>);
+  db.<span class="function">query</span>();           <span class="comment">// هنا يطبع "Connecting..."</span>
+  db.<span class="function">query</span>();           <span class="comment">// لا يعيد الاتصال، يستخدم القيمة المحفوظة</span>
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 13: Object Class -->
+        <section class="section" id="object" data-section="13">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">👤</div>
+                    <div class="section-info">
+                        <h2>الفصول الكائنية (Object Class)</h2>
+                        <p>الجد الأعلى لكل الفصول</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>👤 المفهوم:</h3>
+                        <p>كل فصل في Dart يرث ضمنياً من <code>Object</code> - الجد الأعلى لكل الفصول.</p>
+                    </div>
+
+                    <h3>🔧 الدوال الموروثة:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="keyword">class</span> <span class="class">Person</span> {
+  <span class="type">String</span> name;
+  <span class="type">int</span> age;
+  
+  <span class="class">Person</span>(<span class="keyword">this</span>.name, <span class="keyword">this</span>.age);
+  
+  <span class="comment">// إعادة تعريف toString</span>
+  <span class="keyword">@override</span>
+  <span class="type">String</span> <span class="function">toString</span>() => <span class="string">'Person(name: </span>$name<span class="string">, age: </span>$age<span class="string">)'</span>;
+  
+  <span class="comment">// إعادة تعريف المقارنة</span>
+  <span class="keyword">@override</span>
+  <span class="type">bool</span> <span class="keyword">operator</span> ==(<span class="class">Object</span> other) {
+    <span class="keyword">if</span> (<span class="function">identical</span>(<span class="keyword">this</span>, other)) <span class="keyword">return</span> <span class="keyword">true</span>;
+    <span class="keyword">return</span> other <span class="keyword">is</span> <span class="class">Person</span> && other.name == name && other.age == age;
+  }
+  
+  <span class="comment">// إعادة تعريف hashCode (مهم للـ Maps و Sets)</span>
+  <span class="keyword">@override</span>
+  <span class="type">int</span> <span class="keyword">get</span> hashCode => name.hashCode ^ age.hashCode;
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="keyword">var</span> p1 = <span class="class">Person</span>(<span class="string">'Ahmed'</span>, <span class="number">25</span>);
+  <span class="keyword">var</span> p2 = <span class="class">Person</span>(<span class="string">'Ahmed'</span>, <span class="number">25</span>);
+  
+  <span class="function">print</span>(p1);           <span class="comment">// Person(name: Ahmed, age: 25)</span>
+  <span class="function">print</span>(p1 == p2);     <span class="comment">// true (بفضل operator ==)</span>
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 14: Enums -->
+        <section class="section" id="enums" data-section="14">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">📋</div>
+                    <div class="section-info">
+                        <h2>التعدادات (Enums)</h2>
+                        <p>مجموعة محددة من القيم الثابتة</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="concept-box">
+                        <h3>📋 المفهوم:</h3>
+                        <p>نوع بيانات يحتوي على مجموعة محددة من القيم الثابتة.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Dart</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">📋 نسخ</button>
+                                <button class="code-btn" onclick="toggleCode(this)">👁️ إخفاء</button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="comment">// تعريف Enum بسيط</span>
+<span class="keyword">enum</span> <span class="class">Gender</span> { male, female, other }
+
+<span class="comment">// Enum مع خصائص (Dart 2.17+)</span>
+<span class="keyword">enum</span> <span class="class">Status</span> {
+  pending(<span class="string">'Pending Approval'</span>, Icons.hourglass),
+  approved(<span class="string">'Approved'</span>, Icons.check_circle),
+  rejected(<span class="string">'Rejected'</span>, Icons.cancel);
+  
+  <span class="keyword">final</span> <span class="type">String</span> label;
+  <span class="keyword">final</span> <span class="class">IconData</span> icon;
+  
+  <span class="keyword">const</span> <span class="class">Status</span>(<span class="keyword">this</span>.label, <span class="keyword">this</span>.icon);
+}
+
+<span class="type">void</span> <span class="function">main</span>() {
+  <span class="class">Gender</span> gender = <span class="class">Gender</span>.male;
+  
+  <span class="keyword">switch</span> (gender) {
+    <span class="keyword">case</span> <span class="class">Gender</span>.male:
+      <span class="function">print</span>(<span class="string">'Mr.'</span>);
+      <span class="keyword">break</span>;
+    <span class="keyword">case</span> <span class="class">Gender</span>.female:
+      <span class="function">print</span>(<span class="string">'Ms.'</span>);
+      <span class="keyword">break</span>;
+    <span class="keyword">case</span> <span class="class">Gender</span>.other:
+      <span class="function">print</span>(<span class="string">'Mx.'</span>);
+      <span class="keyword">break</span>;
+  }
+  
+  <span class="comment">// استخدام Enum المتقدم</span>
+  <span class="keyword">var</span> status = <span class="class">Status</span>.approved;
+  <span class="function">print</span>(<span class="string">'</span>${status.label}<span class="string"> - </span>${status.icon}<span class="string">'</span>);
+  
+  <span class="comment">// جميع قيم Enum</span>
+  <span class="function">print</span>(<span class="class">Gender</span>.values);  <span class="comment">// [Gender.male, Gender.female, Gender.other]</span>
+  
+  <span class="comment">// من String إلى Enum</span>
+  <span class="keyword">var</span> fromString = <span class="class">Gender</span>.values.byName(<span class="string">'female'</span>);
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Summary -->
+        <section class="section open" id="summary">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">📚</div>
+                    <div class="section-info">
+                        <h2>🎯 ملخص سريع للمفاهيم</h2>
+                        <p>جدول مرجعي سريع</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>المفهوم</th>
+                                    <th>الاستخدام</th>
+                                    <th>الكلمة المفتاحية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Class</strong></td>
+                                    <td>قالب للكائنات</td>
+                                    <td><code>class</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Object</strong></td>
+                                    <td>نسخة من الفصل</td>
+                                    <td><code>new</code> (اختياري)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Constructor</strong></td>
+                                    <td>بناء الكائن</td>
+                                    <td><code>ClassName()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Encapsulation</strong></td>
+                                    <td>حماية البيانات</td>
+                                    <td><code>_private</code>, <code>get</code>, <code>set</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Inheritance</strong></td>
+                                    <td>وراثة الصفات</td>
+                                    <td><code>extends</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Polymorphism</strong></td>
+                                    <td>تعدد الأشكال</td>
+                                    <td><code>List&lt;Parent&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Abstract</strong></td>
+                                    <td>قالب إجباري</td>
+                                    <td><code>abstract</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Interface</strong></td>
+                                    <td>عقد للتنفيذ</td>
+                                    <td><code>implements</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mixin</strong></td>
+                                    <td>إعادة استخدام الكود</td>
+                                    <td><code>mixin</code>, <code>with</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Enum</strong></td>
+                                    <td>قيم ثابتة</td>
+                                    <td><code>enum</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4>💡 نصائح ذهبية:</h4>
+                        <p>1. <strong>استخدم <code>final</code></strong> للخصائص التي لا تتغير بعد إنشاء الكائن<br>
+                        2. <strong>فضل <code>const</code> constructors</strong> للكائنات الثابتة (تحسين الأداء)<br>
+                        3. <strong>استخدم <code>named constructors</code></strong> لتوضيح سياق الإنشاء<br>
+                        4. <strong>فضل Composition على Inheritance</strong> عندما يكون الـ "has-a" أنسب من "is-a"<br>
+                        5. <strong>استخدم Mixins</strong> للسلوكيات المشتركة عبر فصول مختلفة</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LeetCode Section -->
+        <section class="leetcode-section" id="leetcode">
+            <div class="leetcode-header">
+                <span class="leetcode-icon">💪</span>
+                <div>
+                    <h3>تدرب على LeetCode</h3>
+                    <p>مسائل موصى بها لتحسين مهاراتك في Dart OOP</p>
+                </div>
+            </div>
+            <div class="leetcode-links">
+                <a href="https://leetcode.com/problems/design-parking-system/" target="_blank" class="leetcode-link">
+                    <span>🚗 Design Parking System</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://leetcode.com/problems/design-an-ordered-stream/" target="_blank" class="leetcode-link">
+                    <span>📊 Design Ordered Stream</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://leetcode.com/problems/design-browser-history/" target="_blank" class="leetcode-link">
+                    <span>🌐 Browser History</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://leetcode.com/problems/design-underground-system/" target="_blank" class="leetcode-link">
+                    <span>🚇 Underground System</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://leetcode.com/problems/design-a-stack-with-increment-operation/" target="_blank" class="leetcode-link">
+                    <span>📚 Stack with Increment</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://leetcode.com/problems/design-circular-queue/" target="_blank" class="leetcode-link">
+                    <span>🔄 Circular Queue</span>
+                    <span>↗️</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="section open" id="quiz">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <div class="section-icon">📝</div>
+                    <div class="section-info">
+                        <h2>اختبر نفسك</h2>
+                        <p>اختبار تفاعلي لقياس فهمك</p>
+                    </div>
+                </div>
+                <button class="section-toggle">▼</button>
+            </div>
+            <div class="section-content">
+                <div class="section-body">
+                    <div id="quiz-container">
+                        <!-- Quiz questions will be generated by JavaScript -->
+                    </div>
+                    <div id="quiz-result" style="display: none; text-align: center; padding: 2rem;">
+                        <h3 id="quiz-score"></h3>
+                        <p id="quiz-message"></p>
+                        <button class="demo-btn" onclick="resetQuiz()">🔄 إعادة الاختبار</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">💙</div>
+            <p class="footer-text">صُنع بحب بواسطة محمد حسن مبدع</p>
+            <a href="https://www.linkedin.com/in/mohamed-hassan-pro/" target="_blank" class="footer-link">
+                <span>🔗 تواصل معي على LinkedIn</span>
+                <span>↗️</span>
+            </a>
+            <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.875rem;">
+                🎁 هدية رمضان 2025 للمطورين العرب
+            </p>
+        </div>
+    </footer>
+
+    <script>
+
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            icon.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.getElementById('themeIcon').textContent = savedTheme === 'light' ? '☀️' : '🌙';
+
+        // Navigation Toggle
+        function toggleNav() {
+            const nav = document.getElementById('navSidebar');
+            nav.classList.toggle('open');
+        }
+
+        function closeNav() {
+            const nav = document.getElementById('navSidebar');
+            nav.classList.remove('open');
+        }
+
+        // Section Toggle
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('open');
+            
+            // Save open sections
+            const sectionId = section.id;
+            const isOpen = section.classList.contains('open');
+            const openSections = JSON.parse(localStorage.getItem('openSections') || '[]');
+            
+            if (isOpen) {
+                if (!openSections.includes(sectionId)) {
+                    openSections.push(sectionId);
+                }
+            } else {
+                const index = openSections.indexOf(sectionId);
+                if (index > -1) {
+                    openSections.splice(index, 1);
+                }
+            }
+            
+            localStorage.setItem('openSections', JSON.stringify(openSections));
+        }
+
+        // Restore open sections
+        const openSections = JSON.parse(localStorage.getItem('openSections') || '[]');
+        openSections.forEach(id => {
+            const section = document.getElementById(id);
+            if (section) {
+                section.classList.add('open');
+            }
+        });
+
+        // Copy Code
+        function copyCode(btn) {
+            const codeBlock = btn.closest('.code-block');
+            const code = codeBlock.querySelector('pre').innerText;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ تم النسخ!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        // Toggle Code Visibility
+        function toggleCode(btn) {
+            const codeBlock = btn.closest('.code-block');
+            const codeContent = codeBlock.querySelector('.code-content');
+            
+            if (codeContent.style.display === 'none') {
+                codeContent.style.display = 'block';
+                btn.innerHTML = '👁️ إخفاء';
+            } else {
+                codeContent.style.display = 'none';
+                btn.innerHTML = '👁️ إظهار';
+            }
+        }
+
+        // Progress Bar
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+
+        // Active Navigation Link
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    currentSection = section.id;
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Save last viewed section
+            if (currentSection) {
+                localStorage.setItem('lastSection', currentSection);
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Scroll to last viewed section on load
+        const lastSection = localStorage.getItem('lastSection');
+        if (lastSection) {
+            const section = document.getElementById(lastSection);
+            if (section) {
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 500);
+            }
+        }
+
+        // Demo Functions
+        function runDemo(type) {
+            const output = document.getElementById(type + '-output');
+            
+            if (type === 'alien') {
+                output.innerHTML = `
+                    <div class="demo-output-line">🚀 Alien created!</div>
+                    <div class="demo-output-line">👽 Alien can run with 3 arms</div>
+                    <div class="demo-output-line">📏 Height: 49</div>
+                `;
+            } else if (type === 'inheritance') {
+                output.innerHTML = `
+                    <div class="demo-output-line">🦁 Lion eats meat</div>
+                    <div class="demo-output-line">🦁 ROAR!</div>
+                    <div class="demo-output-line">🦵 Limbs: 4 (inherited from Animal)</div>
+                    <div class="demo-output-line">⚖️ Weight: 190kg</div>
+                `;
+            }
+        }
+
+        function clearDemo(type) {
+            const output = document.getElementById(type + '-output');
+            output.innerHTML = 'اضغط "تشغيل الكود" لرؤية النتيجة...';
+        }
+
+        // Quiz Data
+        const quizQuestions = [
+            {
+                question: 'ما هو الفرق الرئيسي بين extends و implements؟',
+                options: [
+                    'extends يسمح بالوراثة المتعددة، implements لا',
+                    'implements يجبرك على إعادة تنفيذ كل شيء، extends يرث التنفيذ',
+                    'لا يوجد فرق بينهما',
+                    'extends أسرع من implements'
+                ],
+                correct: 1
+            },
+            {
+                question: 'ما هي الكلمة المفتاحية لإنشاء فصل لا يمكن إنشاء كائنات منه؟',
+                options: [
+                    'static',
+                    'final',
+                    'abstract',
+                    'private'
+                ],
+                correct: 2
+            },
+            {
+                question: 'ما هو استخدام الكلمة المفتاحية "late"؟',
+                options: [
+                    'لجعل المتغير ثابتاً',
+                    'لتأجيل التهيئة إلى أول استخدام',
+                    'لجعل المتغير خاصاً',
+                    'لإنشاء constructor'
+                ],
+                correct: 1
+            },
+            {
+                question: 'كيف تجعل خاصية خاصة (Private) في Dart؟',
+                options: [
+                    'تستخدم الكلمة private',
+                    'تضيف _ قبل اسم الخاصية',
+                    'تستخدم الكلمة protected',
+                    'لا يمكن ذلك في Dart'
+                ],
+                correct: 1
+            },
+            {
+                question: 'ما هو الميكسين (Mixin)؟',
+                options: [
+                    'نوع من أنواع الوراثة',
+                    'طريقة لإعادة استخدام الكود بين فصول غير مرتبطة',
+                    'نوع من أنواع Constructors',
+                    'دالة خاصة'
+                ],
+                correct: 1
+            },
+            {
+                question: 'ما هي نتيجة الكود التالي: List<Animal> zoo = [Lion(), Dog()]; zoo[0].makeSound();',
+                options: [
+                    'خطأ في الترجمة',
+                    'سيستدعي makeSound() من Lion',
+                    'سيستدعي makeSound() من Animal',
+                    'لا شيء سيحدث'
+                ],
+                correct: 1
+            },
+            {
+                question: 'ما هو الفرق بين final و const؟',
+                options: [
+                    'لا يوجد فرق',
+                    'final في وقت التشغيل، const في وقت الترجمة',
+                    'const في وقت التشغيل، final في وقت الترجمة',
+                    'final للدوال، const للمتغيرات'
+                ],
+                correct: 1
+            },
+            {
+                question: 'ما هي الطريقة المختصرة لكتابة Constructor في Dart؟',
+                options: [
+                    'ClassName(this.property)',
+                    'ClassName({this.property})',
+                    'ClassName([this.property])',
+                    'كل ما سبق صحيح'
+                ],
+                correct: 3
+            },
+            {
+                question: 'ما هو استخدام @override؟',
+                options: [
+                    'لإجبار المبرمج على إعادة تعريف الدالة',
+                            'تلميح للقارئ بأن الدالة معاد تعريفها',
+                            'لمنع إعادة تعريف الدالة',
+                            'لجعل الدالة خاصة'
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: 'ما هو نوع البيانات الذي يحتوي على مجموعة محددة من القيم الثابتة؟',
+                        options: [
+                            'List',
+                            'Map',
+                            'Enum',
+                            'Set'
+                        ],
+                        correct: 2
+                    }
+                ];
+
+                let currentQuestion = 0;
+                let score = 0;
+                let answered = false;
+
+                function renderQuiz() {
+                    const container = document.getElementById('quiz-container');
+                    
+                    if (currentQuestion >= quizQuestions.length) {
+                        showResult();
+                        return;
+                    }
+                    
+                    const q = quizQuestions[currentQuestion];
+                    
+                    container.innerHTML = `
+                        <div class="quiz-container fade-in">
+                            <div style="margin-bottom: 1rem; color: var(--text-secondary);">
+                                السؤال ${currentQuestion + 1} من ${quizQuestions.length}
+                            </div>
+                            <div class="quiz-question">${q.question}</div>
+                            <div class="quiz-options">
+                                ${q.options.map((opt, i) => `
+                                    <div class="quiz-option" onclick="selectAnswer(${i})">
+                                        <span class="quiz-option-letter">${String.fromCharCode(65 + i)}</span>
+                                        <span>${opt}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div id="quiz-feedback" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;"></div>
+                            <button id="next-btn" class="demo-btn" style="margin-top: 1rem; display: none;" onclick="nextQuestion()">
+                                السؤال التالي →
+                            </button>
+                        </div>
+                    `;
+                    
+                    answered = false;
+                }
+
+                function selectAnswer(index) {
+                    if (answered) return;
+                    
+                    answered = true;
+                    const q = quizQuestions[currentQuestion];
+                    const options = document.querySelectorAll('.quiz-option');
+                    const feedback = document.getElementById('quiz-feedback');
+                    const nextBtn = document.getElementById('next-btn');
+                    
+                    options.forEach((opt, i) => {
+                        if (i === q.correct) {
+                            opt.classList.add('correct');
+                        } else if (i === index && i !== q.correct) {
+                            opt.classList.add('wrong');
+                        }
+                    });
+                    
+                    if (index === q.correct) {
+                        score++;
+                        feedback.innerHTML = '✅ إجابة صحيحة! أحسنت!';
+                        feedback.style.background = 'rgba(102, 187, 106, 0.2)';
+                        feedback.style.color = '#66BB6A';
+                    } else {
+                        feedback.innerHTML = `❌ إجابة خاطئة. الإجابة الصحيحة هي: ${q.options[q.correct]}`;
+                        feedback.style.background = 'rgba(255, 107, 107, 0.2)';
+                        feedback.style.color = '#FF6B6B';
+                    }
+                    
+                    feedback.style.display = 'block';
+                    nextBtn.style.display = 'inline-block';
+                }
+
+                function nextQuestion() {
+                    currentQuestion++;
+                    renderQuiz();
+                }
+
+                function showResult() {
+                    const container = document.getElementById('quiz-container');
+                    const result = document.getElementById('quiz-result');
+                    const scoreEl = document.getElementById('quiz-score');
+                    const messageEl = document.getElementById('quiz-message');
+                    
+                    container.style.display = 'none';
+                    result.style.display = 'block';
+                    
+                    const percentage = (score / quizQuestions.length) * 100;
+                    
+                    scoreEl.innerHTML = `🏆 نتيجتك: ${score} من ${quizQuestions.length} (${percentage}%)`;
+                    
+                    if (percentage >= 80) {
+                        messageEl.innerHTML = '🌟 ممتاز! أنت خبير في Dart OOP!';
+                    } else if (percentage >= 60) {
+                        messageEl.innerHTML = '👍 جيد! لكن يمكنك التحسن أكثر.';
+                    } else {
+                        messageEl.innerHTML = '📚 يحتاج إلى مراجعة. راجع الأقسام السابقة.';
+                    }
+                }
+
+                function resetQuiz() {
+                    currentQuestion = 0;
+                    score = 0;
+                    answered = false;
+                    
+                    document.getElementById('quiz-container').style.display = 'block';
+                    document.getElementById('quiz-result').style.display = 'none';
+                    
+                    renderQuiz();
+                }
+
+                // Initialize quiz
+                renderQuiz();
+
+                // Close nav on outside click
+                document.addEventListener('click', (e) => {
+                    const nav = document.getElementById('navSidebar');
+                    const toggle = document.querySelector('.nav-toggle');
+                    
+                    if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+                        nav.classList.remove('open');
+                    }
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closeNav();
+                    }
+                    if (e.key === 't' && e.ctrlKey) {
+                        e.preventDefault();
+                        toggleTheme();
+                    }
+                });
+
+                // Add fade-in animation to sections on scroll
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('fade-in');
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.section').forEach(section => {
+                    observer.observe(section);
+                });
+
+                // Console welcome message
+                console.log('%c🎯 Dart OOP Guide', 'font-size: 24px; font-weight: bold; color: #0175C2;');
+                console.log('%cصُنع بحب بواسطة محمد حسن مبدع', 'font-size: 14px; color: #00BFA5;');
+                console.log('%chttps://www.linkedin.com/in/mohamed-hassan-pro/', 'font-size: 12px; color: #666;');
+            </script>
+</body>
+</html>
