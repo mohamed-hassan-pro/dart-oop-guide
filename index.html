@@ -5,6 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📘 دليل OOP in Dart الكامل | Mohamed Hassan</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="دليل شامل ومبسط لمفاهيم البرمجة كائنية التوجه (OOP) في لغة Dart بالعربي. 15 موضوع أساسي، 50+ مثال عملي، اختبار تفاعلي، وتصميم متجاوب. هدية رمضان للمطورين العرب.">
+    <meta name="keywords"
+        content="Dart, OOP, Flutter, Clean Code, Object Oriented Programming, البرمجة كائنية التوجه, تعلم البرمجة, مطورين عرب">
+    <meta name="author" content="Mohamed Hassan">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mohamed-hassan-pro.github.io/dart-oop-guide/">
+    <meta property="og:title" content="📘 دليل OOP in Dart الكامل — هدية رمضان للمطورين العرب">
+    <meta property="og:description"
+        content="مرجع شامل ومبسط لمفاهيم الـ OOP في Dart بالعربي. 15 موضوع أساسي، أكتر من 50 مثال عملي، اختبار تفاعلي من 10 أسئلة، وتصميم مريح للعين.">
+    <meta property="og:image" content="https://mohamed-hassan-pro.github.io/dart-oop-guide/og-image.png">
+    <meta property="og:locale" content="ar_AR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="📘 دليل OOP in Dart الكامل — هدية رمضان للمطورين العرب">
+    <meta name="twitter:description"
+        content="مرجع شامل ومبسط لمفاهيم الـ OOP في Dart بالعربي. 15 موضوع، 50+ مثال عملي، اختبار تفاعلي.">
+    <meta name="twitter:image" content="https://mohamed-hassan-pro.github.io/dart-oop-guide/og-image.png">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0F172A">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -1111,6 +1138,587 @@
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
+
+        /* ===== PREMIUM ENHANCEMENTS ===== */
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle linear infinite;
+        }
+
+        .particle:nth-child(1) {
+            left: 10%;
+            animation-duration: 12s;
+            animation-delay: 0s;
+            width: 4px;
+            height: 4px;
+            background: var(--secondary);
+        }
+
+        .particle:nth-child(2) {
+            left: 25%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+            width: 6px;
+            height: 6px;
+        }
+
+        .particle:nth-child(3) {
+            left: 40%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+            width: 3px;
+            height: 3px;
+            background: #667eea;
+        }
+
+        .particle:nth-child(4) {
+            left: 55%;
+            animation-duration: 18s;
+            animation-delay: 1s;
+            width: 5px;
+            height: 5px;
+            background: var(--secondary);
+        }
+
+        .particle:nth-child(5) {
+            left: 70%;
+            animation-duration: 14s;
+            animation-delay: 3s;
+            width: 4px;
+            height: 4px;
+        }
+
+        .particle:nth-child(6) {
+            left: 85%;
+            animation-duration: 11s;
+            animation-delay: 5s;
+            width: 7px;
+            height: 7px;
+            background: #764ba2;
+        }
+
+        .particle:nth-child(7) {
+            left: 15%;
+            animation-duration: 16s;
+            animation-delay: 6s;
+            width: 3px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .particle:nth-child(8) {
+            left: 50%;
+            animation-duration: 13s;
+            animation-delay: 2.5s;
+            width: 5px;
+            height: 5px;
+            background: #667eea;
+        }
+
+        .particle:nth-child(9) {
+            left: 35%;
+            animation-duration: 17s;
+            animation-delay: 7s;
+            width: 4px;
+            height: 4px;
+        }
+
+        .particle:nth-child(10) {
+            left: 80%;
+            animation-duration: 19s;
+            animation-delay: 1.5s;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+        }
+
+        .particle:nth-child(11) {
+            left: 5%;
+            animation-duration: 14s;
+            animation-delay: 3.5s;
+            width: 5px;
+            height: 5px;
+            background: #f093fb;
+        }
+
+        .particle:nth-child(12) {
+            left: 92%;
+            animation-duration: 12s;
+            animation-delay: 8s;
+            width: 4px;
+            height: 4px;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glassmorphism Hero Badge */
+        .hero-badge {
+            background: rgba(1, 117, 194, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(1, 117, 194, 0.35);
+            box-shadow: 0 8px 32px rgba(1, 117, 194, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: badgePulse 3s ease-in-out infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @keyframes badgePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 32px rgba(1, 117, 194, 0.15);
+            }
+
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 8px 40px rgba(1, 117, 194, 0.3);
+            }
+        }
+
+        /* Hero CTA Buttons */
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-btn:hover::after {
+            opacity: 1;
+        }
+
+        .cta-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 20px rgba(1, 117, 194, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(1, 117, 194, 0.5);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            border: 1.5px solid var(--border);
+            backdrop-filter: blur(8px);
+        }
+
+        [data-theme="light"] .cta-secondary {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            background: rgba(1, 117, 194, 0.1);
+            box-shadow: 0 8px 25px rgba(1, 117, 194, 0.15);
+        }
+
+        /* GitHub Star Button in Header */
+        .github-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .github-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .github-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Section Hover Glow */
+        .section {
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 17px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .section:hover::before {
+            opacity: 0.15;
+        }
+
+        /* Gradient Section Accent Strips */
+        .section[data-section="1"] {
+            border-right: 4px solid #0175C2;
+        }
+
+        .section[data-section="2"] {
+            border-right: 4px solid #00BFA5;
+        }
+
+        .section[data-section="3"] {
+            border-right: 4px solid #667eea;
+        }
+
+        .section[data-section="4"] {
+            border-right: 4px solid #FF6B6B;
+        }
+
+        .section[data-section="5"] {
+            border-right: 4px solid #FFA726;
+        }
+
+        .section[data-section="6"] {
+            border-right: 4px solid #764ba2;
+        }
+
+        .section[data-section="7"] {
+            border-right: 4px solid #f093fb;
+        }
+
+        .section[data-section="8"] {
+            border-right: 4px solid #43E97B;
+        }
+
+        .section[data-section="9"] {
+            border-right: 4px solid #FA709A;
+        }
+
+        .section[data-section="10"] {
+            border-right: 4px solid #FEE140;
+        }
+
+        .section[data-section="11"] {
+            border-right: 4px solid #30CFD0;
+        }
+
+        .section[data-section="12"] {
+            border-right: 4px solid #A8EB12;
+        }
+
+        .section[data-section="13"] {
+            border-right: 4px solid #FBAB7E;
+        }
+
+        .section[data-section="14"] {
+            border-right: 4px solid #85FFBD;
+        }
+
+        /* Code Block Hover Glow */
+        .code-block {
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .code-block:hover {
+            box-shadow: 0 0 20px rgba(1, 117, 194, 0.15);
+            border-color: rgba(1, 117, 194, 0.3);
+        }
+
+        .dartpad-btn {
+            background: linear-gradient(135deg, #0175C2 0%, #00BFA5 100%);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: white;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .dartpad-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(1, 117, 194, 0.3);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            box-shadow: 0 4px 20px rgba(1, 117, 194, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(1, 117, 194, 0.4);
+        }
+
+        /* Staggered fade-in */
+        .stagger-1 {
+            animation-delay: 0.1s !important;
+        }
+
+        .stagger-2 {
+            animation-delay: 0.2s !important;
+        }
+
+        .stagger-3 {
+            animation-delay: 0.3s !important;
+        }
+
+        .stagger-4 {
+            animation-delay: 0.4s !important;
+        }
+
+        .stagger-5 {
+            animation-delay: 0.5s !important;
+        }
+
+        /* Animated Stats */
+        .stat-item {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Footer Social Links */
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-social-btn.linkedin {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(1, 117, 194, 0.3);
+        }
+
+        .footer-social-btn.github {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .footer-social-btn.github:hover {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .footer-social-btn.share {
+            background: rgba(0, 191, 165, 0.15);
+            color: var(--secondary);
+            border: 1px solid rgba(0, 191, 165, 0.3);
+        }
+
+        .footer-social-btn.share:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .footer-tagline {
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .footer-hashtag {
+            display: inline-block;
+            margin-top: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* Hero content z-index */
+        .hero>*:not(.particles) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll indicator improvement */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid var(--primary);
+            border-bottom: 2px solid var(--primary);
+            transform: rotate(45deg);
+            animation: scrollArrow 2s infinite;
+        }
+
+        @keyframes scrollArrow {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: rotate(45deg) translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: rotate(45deg) translateY(8px);
+            }
+        }
+
+        /* Mobile CTA adjustments */
+        @media (max-width: 768px) {
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .github-btn span.gh-text {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -1128,6 +1736,14 @@
                 <span>OOP in Dart Guide</span>
             </div>
             <div class="header-actions">
+                <a href="https://github.com/mohamed-hassan-pro/dart-oop-guide" target="_blank" class="github-btn"
+                    title="GitHub">
+                    <svg viewBox="0 0 16 16">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                    <span class="gh-text">⭐ Star</span>
+                </a>
                 <button class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع">
                     <span id="themeIcon">🌙</span>
                 </button>
@@ -1253,8 +1869,24 @@
 
     <!-- Hero Section -->
     <section class="hero" id="intro">
+        <!-- Floating Particles -->
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
         <div class="hero-badge">
-            🎁 هدية رمضان للمطورين
+            🎁 هدية رمضان للمطورين العرب
         </div>
         <h1>
             دليل <span>OOP in Dart</span><br>
@@ -1266,11 +1898,11 @@
         </p>
         <div class="hero-stats">
             <div class="stat-item">
-                <div class="stat-number">15</div>
+                <div class="stat-number" data-target="15">0</div>
                 <div class="stat-label">موضوع أساسي</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">50+</div>
+                <div class="stat-number" data-target="50" data-suffix="+">0</div>
                 <div class="stat-label">مثال عملي</div>
             </div>
             <div class="stat-item">
@@ -1278,8 +1910,19 @@
                 <div class="stat-label">قيمة مجانية</div>
             </div>
         </div>
+        <div class="hero-cta">
+            <a href="#classes" class="cta-btn cta-primary">📖 ابدأ التعلم</a>
+            <a href="https://github.com/mohamed-hassan-pro/dart-oop-guide" target="_blank"
+                class="cta-btn cta-secondary">
+                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                    <path
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+                شارك في التطوير على GitHub
+            </a>
+        </div>
         <div class="scroll-indicator">
-            ↓ اسحب للأسفل
+            <span></span>
         </div>
     </section>
 
@@ -1940,7 +2583,8 @@
                     <div class="tip-box">
                         <h4>💡 الفائدة:</h4>
                         <p>يمكنك إضافة <code>Elephant</code> أو <code>Bird</code> لاحقاً دون تعديل الكود الذي يتعامل مع
-                            <code>List&lt;Animal&gt;</code>!</p>
+                            <code>List&lt;Animal&gt;</code>!
+                        </p>
                     </div>
                 </div>
             </div>
@@ -2689,15 +3333,32 @@
         <div class="footer-content">
             <div class="footer-logo">💙</div>
             <p class="footer-text">صُنع بحب بواسطة محمد حسن مبدع</p>
-            <a href="https://www.linkedin.com/in/mohamed-hassan-pro/" target="_blank" class="footer-link">
-                <span>🔗 تواصل معي على LinkedIn</span>
-                <span>↗️</span>
-            </a>
-            <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.875rem;">
-                🎁 هدية رمضان 2025 للمطورين العرب
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/mohamed-hassan-pro/" target="_blank"
+                    class="footer-social-btn linkedin">
+                    🔗 تواصل معي على LinkedIn
+                </a>
+                <a href="https://github.com/mohamed-hassan-pro/dart-oop-guide" target="_blank"
+                    class="footer-social-btn github">
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                    شارك في التطوير
+                </a>
+            </div>
+            <p class="footer-tagline">
+                🎁 هدية رمضان 2026 للمطورين العرب
             </p>
+            <p class="footer-hashtag">#OOP_in_Dart_Guide_by_Moubdi3</p>
         </div>
     </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        title="العودة للأعلى">
+        ↑
+    </button>
 
     <script>
 
@@ -3119,10 +3780,58 @@
             observer.observe(section);
         });
 
+        // Animated Stat Counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number[data-target]');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const duration = 1500;
+                const steps = 30;
+                const increment = target / steps;
+                let current = 0;
+                let step = 0;
+
+                const timer = setInterval(() => {
+                    step++;
+                    current = Math.min(Math.round(increment * step), target);
+                    counter.textContent = current + suffix;
+                    if (step >= steps) {
+                        clearInterval(timer);
+                        counter.textContent = target + suffix;
+                    }
+                }, duration / steps);
+            });
+        }
+
+        // Trigger counters when hero is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) heroObserver.observe(heroSection);
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
         // Console welcome message
         console.log('%c🎯 OOP in Dart Guide', 'font-size: 24px; font-weight: bold; color: #0175C2;');
         console.log('%cصُنع بحب بواسطة محمد حسن (مبدع)', 'font-size: 14px; color: #00BFA5;');
-        console.log('%chttps://www.linkedin.com/in/mohamed-hassan-pro/', 'font-size: 12px; color: #666;');
+        console.log('%c🔗 LinkedIn: https://www.linkedin.com/in/mohamed-hassan-pro/', 'font-size: 12px; color: #0077B5;');
+        console.log('%c📂 GitHub: https://github.com/mohamed-hassan-pro/dart-oop-guide', 'font-size: 12px; color: #333;');
     </script>
 </body>
 
