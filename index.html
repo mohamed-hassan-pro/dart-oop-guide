@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📘 دليل Dart OOP الكامل | Mohamed Hassan</title>
+    <title>📘 دليل OOP in Dart الكامل | Mohamed Hassan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #0175C2;
@@ -187,7 +190,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(1, 117, 194, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(0, 191, 165, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
@@ -209,8 +212,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .hero h1 {
@@ -267,8 +277,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
         }
 
         /* Navigation Sidebar */
@@ -504,6 +521,8 @@
             overflow: hidden;
             margin: 1.5rem 0;
             border: 1px solid var(--border);
+            direction: ltr;
+            text-align: left;
         }
 
         .code-header {
@@ -571,23 +590,70 @@
         }
 
         /* Syntax Highlighting */
-        .keyword { color: #FF7B72; }
-        .string { color: #A5D6FF; }
-        .comment { color: #8B949E; font-style: italic; }
-        .function { color: #D2A8FF; }
-        .class { color: #FFA657; }
-        .type { color: #79C0FF; }
-        .number { color: #79C0FF; }
-        .operator { color: #FF7B72; }
+        .keyword {
+            color: #FF7B72;
+        }
 
-        [data-theme="light"] .keyword { color: #D73A49; }
-        [data-theme="light"] .string { color: #032F62; }
-        [data-theme="light"] .comment { color: #6A737D; }
-        [data-theme="light"] .function { color: #6F42C1; }
-        [data-theme="light"] .class { color: #E36209; }
-        [data-theme="light"] .type { color: #005CC5; }
-        [data-theme="light"] .number { color: #005CC5; }
-        [data-theme="light"] .operator { color: #D73A49; }
+        .string {
+            color: #A5D6FF;
+        }
+
+        .comment {
+            color: #8B949E;
+            font-style: italic;
+        }
+
+        .function {
+            color: #D2A8FF;
+        }
+
+        .class {
+            color: #FFA657;
+        }
+
+        .type {
+            color: #79C0FF;
+        }
+
+        .number {
+            color: #79C0FF;
+        }
+
+        .operator {
+            color: #FF7B72;
+        }
+
+        [data-theme="light"] .keyword {
+            color: #D73A49;
+        }
+
+        [data-theme="light"] .string {
+            color: #032F62;
+        }
+
+        [data-theme="light"] .comment {
+            color: #6A737D;
+        }
+
+        [data-theme="light"] .function {
+            color: #6F42C1;
+        }
+
+        [data-theme="light"] .class {
+            color: #E36209;
+        }
+
+        [data-theme="light"] .type {
+            color: #005CC5;
+        }
+
+        [data-theme="light"] .number {
+            color: #005CC5;
+        }
+
+        [data-theme="light"] .operator {
+            color: #D73A49;
+        }
 
         /* Table */
         .table-container {
@@ -603,7 +669,8 @@
             overflow: hidden;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1rem;
             text-align: right;
             border-bottom: 1px solid var(--border);
@@ -881,8 +948,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Interactive Demo */
@@ -931,8 +1005,15 @@
         }
 
         @keyframes typeIn {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Comparison Table */
@@ -1032,6 +1113,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Progress Bar -->
     <div class="progress-container">
@@ -1221,14 +1303,15 @@
                     <div class="concept-box">
                         <h3>🎯 المفهوم الأساسي</h3>
                         <p><strong>الفصل (Class)</strong> = القالب أو البلوبريت (Blueprint)<br>
-                        <strong>الكائن (Object)</strong> = نسخة حقيقية من الفصل</p>
+                            <strong>الكائن (Object)</strong> = نسخة حقيقية من الفصل
+                        </p>
                     </div>
 
                     <div class="concept-box">
                         <h3>🏗️ خطوات إنشاء كائن:</h3>
                         <p>1. حدد الفصيلة (Class)<br>
-                        2. حدد السمات (Attributes/Properties)<br>
-                        3. حدد السلوكيات (Methods)</p>
+                            2. حدد السمات (Attributes/Properties)<br>
+                            3. حدد السلوكيات (Methods)</p>
                     </div>
 
                     <div class="code-block">
@@ -1274,7 +1357,8 @@
                     <div class="concept-box">
                         <h3>💡 مثال حياتي:</h3>
                         <p><strong>الفصل</strong> = تصميم السيارة (Blueprint)<br>
-                        <strong>الكائن</strong> = سيارتك الفعلية في الشارع</p>
+                            <strong>الكائن</strong> = سيارتك الفعلية في الشارع
+                        </p>
                     </div>
 
                     <div class="demo-box">
@@ -1391,7 +1475,8 @@
                 <div class="section-body">
                     <div class="concept-box">
                         <h3>🏗️ ما هو Constructor؟</h3>
-                        <p>هو دالة خاصة <strong>تُنشئ</strong> الكائن عند إنشائه. <strong>لا يمكن أن يكون لها نوع إرجاع</strong>.</p>
+                        <p>هو دالة خاصة <strong>تُنشئ</strong> الكائن عند إنشائه. <strong>لا يمكن أن يكون لها نوع
+                                إرجاع</strong>.</p>
                     </div>
 
                     <h3>1. البناء الافتراضي (Default Constructor):</h3>
@@ -1514,14 +1599,15 @@
                 <div class="section-body">
                     <div class="concept-box">
                         <h3>🔒 المفهوم:</h3>
-                        <p>إخفاء البيانات الحساسة داخل الفصل وجعل الوصول إليها من خلال <strong>واجهة آمنة</strong> (Setters & Getters).</p>
+                        <p>إخفاء البيانات الحساسة داخل الفصل وجعل الوصول إليها من خلال <strong>واجهة آمنة</strong>
+                            (Setters & Getters).</p>
                     </div>
 
                     <div class="concept-box">
                         <h3>🛡️ لماذا؟</h3>
                         <p>• حماية البيانات من التعديل العشوائي<br>
-                        • إضافة شروط (Validation) على البيانات الداخلة<br>
-                        • تنسيق البيانات عند استرجاعها</p>
+                            • إضافة شروط (Validation) على البيانات الداخلة<br>
+                            • تنسيق البيانات عند استرجاعها</p>
                     </div>
 
                     <div class="code-block">
@@ -1696,8 +1782,8 @@
                     <div class="concept-box">
                         <h3>🔑 الكلمات المفتاحية:</h3>
                         <p>• <code>extends</code> : للوراثة<br>
-                        • <code>super</code> : للإشارة للأب<br>
-                        • <code>@override</code> : لإعادة تعريف دالة (تلميح للقارئ)</p>
+                            • <code>super</code> : للإشارة للأب<br>
+                            • <code>@override</code> : لإعادة تعريف دالة (تلميح للقارئ)</p>
                     </div>
 
                     <div class="diagram">
@@ -1797,7 +1883,7 @@
                     <div class="concept-box">
                         <h3>🎭 المفهوم:</h3>
                         <p><strong>نفس الواجهة، سلوك مختلف</strong><br>
-                        القدرة على معاملة كائنات من فصول مختلفة بشكل موحد عبر واجهة مشتركة (الأب).</p>
+                            القدرة على معاملة كائنات من فصول مختلفة بشكل موحد عبر واجهة مشتركة (الأب).</p>
                     </div>
 
                     <div class="code-block">
@@ -1853,7 +1939,8 @@
 
                     <div class="tip-box">
                         <h4>💡 الفائدة:</h4>
-                        <p>يمكنك إضافة <code>Elephant</code> أو <code>Bird</code> لاحقاً دون تعديل الكود الذي يتعامل مع <code>List&lt;Animal&gt;</code>!</p>
+                        <p>يمكنك إضافة <code>Elephant</code> أو <code>Bird</code> لاحقاً دون تعديل الكود الذي يتعامل مع
+                            <code>List&lt;Animal&gt;</code>!</p>
                     </div>
                 </div>
             </div>
@@ -1875,7 +1962,8 @@
                 <div class="section-body">
                     <div class="concept-box">
                         <h3>🎨 المفهوم:</h3>
-                        <p>فصل <strong>لا يمكن إنشاء كائنات منه مباشرة</strong>، يُستخدم كقالب لتحديد <strong>ما يجب</strong> أن تفعله الفصول الأبناء.</p>
+                        <p>فصل <strong>لا يمكن إنشاء كائنات منه مباشرة</strong>، يُستخدم كقالب لتحديد <strong>ما
+                                يجب</strong> أن تفعله الفصول الأبناء.</p>
                     </div>
 
                     <div class="code-block">
@@ -1954,14 +2042,14 @@
                         <div class="comparison-card">
                             <h4>🔹 extends</h4>
                             <p>• وراثة واحدة فقط<br>
-                            • ترث التنفيذ والخصائص<br>
-                            • <code>super</code> متاح</p>
+                                • ترث التنفيذ والخصائص<br>
+                                • <code>super</code> متاح</p>
                         </div>
                         <div class="comparison-card">
                             <h4>🔸 implements</h4>
                             <p>• يمكن تنفيذ عدة واجهات<br>
-                            • تُجبرك على إعادة تنفيذ <strong>كل شيء</strong><br>
-                            • <code>super</code> <strong>غير</strong> متاح</p>
+                                • تُجبرك على إعادة تنفيذ <strong>كل شيء</strong><br>
+                                • <code>super</code> <strong>غير</strong> متاح</p>
                         </div>
                     </div>
 
@@ -2063,8 +2151,8 @@
                     <div class="concept-box">
                         <h3>📋 الشروط:</h3>
                         <p>• تُعرف بـ <code>mixin</code> بدلاً من <code>class</code><br>
-                        • لا يمكن إنشاء كائنات منها<br>
-                        • تُستخدم مع <code>with</code></p>
+                            • لا يمكن إنشاء كائنات منها<br>
+                            • تُستخدم مع <code>with</code></p>
                     </div>
 
                     <div class="code-block">
@@ -2227,7 +2315,7 @@
                     <div class="concept-box">
                         <h3>📝 حالات الاستخدام:</h3>
                         <p>1. <strong>التعهد بالتهيئة لاحقاً</strong> (Non-nullable لكن ليس الآن)<br>
-                        2. <strong>التهيئة الكسولة</strong> (Lazy) - لا تُنفذ حتى تحتاجها</p>
+                            2. <strong>التهيئة الكسولة</strong> (Lazy) - لا تُنفذ حتى تحتاجها</p>
                     </div>
 
                     <div class="code-block">
@@ -2520,10 +2608,11 @@
                     <div class="tip-box">
                         <h4>💡 نصائح ذهبية:</h4>
                         <p>1. <strong>استخدم <code>final</code></strong> للخصائص التي لا تتغير بعد إنشاء الكائن<br>
-                        2. <strong>فضل <code>const</code> constructors</strong> للكائنات الثابتة (تحسين الأداء)<br>
-                        3. <strong>استخدم <code>named constructors</code></strong> لتوضيح سياق الإنشاء<br>
-                        4. <strong>فضل Composition على Inheritance</strong> عندما يكون الـ "has-a" أنسب من "is-a"<br>
-                        5. <strong>استخدم Mixins</strong> للسلوكيات المشتركة عبر فصول مختلفة</p>
+                            2. <strong>فضل <code>const</code> constructors</strong> للكائنات الثابتة (تحسين الأداء)<br>
+                            3. <strong>استخدم <code>named constructors</code></strong> لتوضيح سياق الإنشاء<br>
+                            4. <strong>فضل Composition على Inheritance</strong> عندما يكون الـ "has-a" أنسب من
+                            "is-a"<br>
+                            5. <strong>استخدم Mixins</strong> للسلوكيات المشتركة عبر فصول مختلفة</p>
                     </div>
                 </div>
             </div>
@@ -2551,11 +2640,13 @@
                     <span>🌐 Browser History</span>
                     <span>↗️</span>
                 </a>
-                <a href="https://leetcode.com/problems/design-underground-system/" target="_blank" class="leetcode-link">
+                <a href="https://leetcode.com/problems/design-underground-system/" target="_blank"
+                    class="leetcode-link">
                     <span>🚇 Underground System</span>
                     <span>↗️</span>
                 </a>
-                <a href="https://leetcode.com/problems/design-a-stack-with-increment-operation/" target="_blank" class="leetcode-link">
+                <a href="https://leetcode.com/problems/design-a-stack-with-increment-operation/" target="_blank"
+                    class="leetcode-link">
                     <span>📚 Stack with Increment</span>
                     <span>↗️</span>
                 </a>
@@ -2616,7 +2707,7 @@
             const icon = document.getElementById('themeIcon');
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
+
             html.setAttribute('data-theme', newTheme);
             icon.textContent = newTheme === 'light' ? '☀️' : '🌙';
             localStorage.setItem('theme', newTheme);
@@ -2642,12 +2733,12 @@
         function toggleSection(header) {
             const section = header.parentElement;
             section.classList.toggle('open');
-            
+
             // Save open sections
             const sectionId = section.id;
             const isOpen = section.classList.contains('open');
             const openSections = JSON.parse(localStorage.getItem('openSections') || '[]');
-            
+
             if (isOpen) {
                 if (!openSections.includes(sectionId)) {
                     openSections.push(sectionId);
@@ -2658,7 +2749,7 @@
                     openSections.splice(index, 1);
                 }
             }
-            
+
             localStorage.setItem('openSections', JSON.stringify(openSections));
         }
 
@@ -2675,7 +2766,7 @@
         function copyCode(btn) {
             const codeBlock = btn.closest('.code-block');
             const code = codeBlock.querySelector('pre').innerText;
-            
+
             navigator.clipboard.writeText(code).then(() => {
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '✅ تم النسخ!';
@@ -2689,7 +2780,7 @@
         function toggleCode(btn) {
             const codeBlock = btn.closest('.code-block');
             const codeContent = codeBlock.querySelector('.code-content');
-            
+
             if (codeContent.style.display === 'none') {
                 codeContent.style.display = 'block';
                 btn.innerHTML = '👁️ إخفاء';
@@ -2713,23 +2804,23 @@
         function updateActiveNav() {
             const sections = document.querySelectorAll('.section');
             const navLinks = document.querySelectorAll('.nav-link');
-            
+
             let currentSection = '';
-            
+
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
                 if (rect.top <= 100 && rect.bottom >= 100) {
                     currentSection = section.id;
                 }
             });
-            
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + currentSection) {
                     link.classList.add('active');
                 }
             });
-            
+
             // Save last viewed section
             if (currentSection) {
                 localStorage.setItem('lastSection', currentSection);
@@ -2752,7 +2843,7 @@
         // Demo Functions
         function runDemo(type) {
             const output = document.getElementById(type + '-output');
-            
+
             if (type === 'alien') {
                 output.innerHTML = `
                     <div class="demo-output-line">🚀 Alien created!</div>
@@ -2860,39 +2951,39 @@
                 question: 'ما هو استخدام @override؟',
                 options: [
                     'لإجبار المبرمج على إعادة تعريف الدالة',
-                            'تلميح للقارئ بأن الدالة معاد تعريفها',
-                            'لمنع إعادة تعريف الدالة',
-                            'لجعل الدالة خاصة'
-                        ],
-                        correct: 1
-                    },
-                    {
-                        question: 'ما هو نوع البيانات الذي يحتوي على مجموعة محددة من القيم الثابتة؟',
-                        options: [
-                            'List',
-                            'Map',
-                            'Enum',
-                            'Set'
-                        ],
-                        correct: 2
-                    }
-                ];
+                    'تلميح للقارئ بأن الدالة معاد تعريفها',
+                    'لمنع إعادة تعريف الدالة',
+                    'لجعل الدالة خاصة'
+                ],
+                correct: 1
+            },
+            {
+                question: 'ما هو نوع البيانات الذي يحتوي على مجموعة محددة من القيم الثابتة؟',
+                options: [
+                    'List',
+                    'Map',
+                    'Enum',
+                    'Set'
+                ],
+                correct: 2
+            }
+        ];
 
-                let currentQuestion = 0;
-                let score = 0;
-                let answered = false;
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
 
-                function renderQuiz() {
-                    const container = document.getElementById('quiz-container');
-                    
-                    if (currentQuestion >= quizQuestions.length) {
-                        showResult();
-                        return;
-                    }
-                    
-                    const q = quizQuestions[currentQuestion];
-                    
-                    container.innerHTML = `
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+
+            if (currentQuestion >= quizQuestions.length) {
+                showResult();
+                return;
+            }
+
+            const q = quizQuestions[currentQuestion];
+
+            container.innerHTML = `
                         <div class="quiz-container fade-in">
                             <div style="margin-bottom: 1rem; color: var(--text-secondary);">
                                 السؤال ${currentQuestion + 1} من ${quizQuestions.length}
@@ -2912,126 +3003,127 @@
                             </button>
                         </div>
                     `;
-                    
-                    answered = false;
+
+            answered = false;
+        }
+
+        function selectAnswer(index) {
+            if (answered) return;
+
+            answered = true;
+            const q = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('quiz-feedback');
+            const nextBtn = document.getElementById('next-btn');
+
+            options.forEach((opt, i) => {
+                if (i === q.correct) {
+                    opt.classList.add('correct');
+                } else if (i === index && i !== q.correct) {
+                    opt.classList.add('wrong');
                 }
+            });
 
-                function selectAnswer(index) {
-                    if (answered) return;
-                    
-                    answered = true;
-                    const q = quizQuestions[currentQuestion];
-                    const options = document.querySelectorAll('.quiz-option');
-                    const feedback = document.getElementById('quiz-feedback');
-                    const nextBtn = document.getElementById('next-btn');
-                    
-                    options.forEach((opt, i) => {
-                        if (i === q.correct) {
-                            opt.classList.add('correct');
-                        } else if (i === index && i !== q.correct) {
-                            opt.classList.add('wrong');
-                        }
-                    });
-                    
-                    if (index === q.correct) {
-                        score++;
-                        feedback.innerHTML = '✅ إجابة صحيحة! أحسنت!';
-                        feedback.style.background = 'rgba(102, 187, 106, 0.2)';
-                        feedback.style.color = '#66BB6A';
-                    } else {
-                        feedback.innerHTML = `❌ إجابة خاطئة. الإجابة الصحيحة هي: ${q.options[q.correct]}`;
-                        feedback.style.background = 'rgba(255, 107, 107, 0.2)';
-                        feedback.style.color = '#FF6B6B';
-                    }
-                    
-                    feedback.style.display = 'block';
-                    nextBtn.style.display = 'inline-block';
+            if (index === q.correct) {
+                score++;
+                feedback.innerHTML = '✅ إجابة صحيحة! أحسنت!';
+                feedback.style.background = 'rgba(102, 187, 106, 0.2)';
+                feedback.style.color = '#66BB6A';
+            } else {
+                feedback.innerHTML = `❌ إجابة خاطئة. الإجابة الصحيحة هي: ${q.options[q.correct]}`;
+                feedback.style.background = 'rgba(255, 107, 107, 0.2)';
+                feedback.style.color = '#FF6B6B';
+            }
+
+            feedback.style.display = 'block';
+            nextBtn.style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            renderQuiz();
+        }
+
+        function showResult() {
+            const container = document.getElementById('quiz-container');
+            const result = document.getElementById('quiz-result');
+            const scoreEl = document.getElementById('quiz-score');
+            const messageEl = document.getElementById('quiz-message');
+
+            container.style.display = 'none';
+            result.style.display = 'block';
+
+            const percentage = (score / quizQuestions.length) * 100;
+
+            scoreEl.innerHTML = `🏆 نتيجتك: ${score} من ${quizQuestions.length} (${percentage}%)`;
+
+            if (percentage >= 80) {
+                messageEl.innerHTML = '🌟 ممتاز! أنت خبير في Dart OOP!';
+            } else if (percentage >= 60) {
+                messageEl.innerHTML = '👍 جيد! لكن يمكنك التحسن أكثر.';
+            } else {
+                messageEl.innerHTML = '📚 يحتاج إلى مراجعة. راجع الأقسام السابقة.';
+            }
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('quiz-result').style.display = 'none';
+
+            renderQuiz();
+        }
+
+        // Initialize quiz
+        renderQuiz();
+
+        // Close nav on outside click
+        document.addEventListener('click', (e) => {
+            const nav = document.getElementById('navSidebar');
+            const toggle = document.querySelector('.nav-toggle');
+
+            if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+                nav.classList.remove('open');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeNav();
+            }
+            if (e.key === 't' && e.ctrlKey) {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        // Add fade-in animation to sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
                 }
+            });
+        }, observerOptions);
 
-                function nextQuestion() {
-                    currentQuestion++;
-                    renderQuiz();
-                }
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
 
-                function showResult() {
-                    const container = document.getElementById('quiz-container');
-                    const result = document.getElementById('quiz-result');
-                    const scoreEl = document.getElementById('quiz-score');
-                    const messageEl = document.getElementById('quiz-message');
-                    
-                    container.style.display = 'none';
-                    result.style.display = 'block';
-                    
-                    const percentage = (score / quizQuestions.length) * 100;
-                    
-                    scoreEl.innerHTML = `🏆 نتيجتك: ${score} من ${quizQuestions.length} (${percentage}%)`;
-                    
-                    if (percentage >= 80) {
-                        messageEl.innerHTML = '🌟 ممتاز! أنت خبير في Dart OOP!';
-                    } else if (percentage >= 60) {
-                        messageEl.innerHTML = '👍 جيد! لكن يمكنك التحسن أكثر.';
-                    } else {
-                        messageEl.innerHTML = '📚 يحتاج إلى مراجعة. راجع الأقسام السابقة.';
-                    }
-                }
-
-                function resetQuiz() {
-                    currentQuestion = 0;
-                    score = 0;
-                    answered = false;
-                    
-                    document.getElementById('quiz-container').style.display = 'block';
-                    document.getElementById('quiz-result').style.display = 'none';
-                    
-                    renderQuiz();
-                }
-
-                // Initialize quiz
-                renderQuiz();
-
-                // Close nav on outside click
-                document.addEventListener('click', (e) => {
-                    const nav = document.getElementById('navSidebar');
-                    const toggle = document.querySelector('.nav-toggle');
-                    
-                    if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-                        nav.classList.remove('open');
-                    }
-                });
-
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        closeNav();
-                    }
-                    if (e.key === 't' && e.ctrlKey) {
-                        e.preventDefault();
-                        toggleTheme();
-                    }
-                });
-
-                // Add fade-in animation to sections on scroll
-                const observerOptions = {
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -50px 0px'
-                };
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('fade-in');
-                        }
-                    });
-                }, observerOptions);
-
-                document.querySelectorAll('.section').forEach(section => {
-                    observer.observe(section);
-                });
-
-                // Console welcome message
-                console.log('%c🎯 Dart OOP Guide', 'font-size: 24px; font-weight: bold; color: #0175C2;');
-                console.log('%cصُنع بحب بواسطة محمد حسن (مبدع)', 'font-size: 14px; color: #00BFA5;');
-                console.log('%chttps://www.linkedin.com/in/mohamed-hassan-pro/', 'font-size: 12px; color: #666;');
-            </script>
+        // Console welcome message
+        console.log('%c🎯 Dart OOP Guide', 'font-size: 24px; font-weight: bold; color: #0175C2;');
+        console.log('%cصُنع بحب بواسطة محمد حسن (مبدع)', 'font-size: 14px; color: #00BFA5;');
+        console.log('%chttps://www.linkedin.com/in/mohamed-hassan-pro/', 'font-size: 12px; color: #666;');
+    </script>
 </body>
+
 </html>
