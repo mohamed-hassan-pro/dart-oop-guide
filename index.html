@@ -3,6 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        // Force page to open at the very top — runs before body renders
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+        if (window.location.hash) history.replaceState(null, '', window.location.pathname);
+        try { localStorage.removeItem('openSections'); } catch (e) { }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📘 دليل OOP in Dart الكامل | Mohamed Hassan</title>
 
@@ -80,9 +87,6 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
 
         body {
             font-family: 'Cairo', sans-serif;
@@ -138,8 +142,23 @@
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             z-index: 9999;
-            border-bottom: 1px solid var(--border);
+            border-bottom: none;
             transition: var(--transition);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), transparent);
+            pointer-events: none;
+        }
+
+        [data-theme="light"] .header::after {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.06), transparent);
         }
 
         [data-theme="light"] .header {
@@ -149,7 +168,7 @@
         .header-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0.75rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -161,6 +180,9 @@
             gap: 0.75rem;
             font-size: 1.5rem;
             font-weight: 800;
+        }
+
+        .logo>span:not(.logo-icon) {
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -168,7 +190,37 @@
         }
 
         .logo-icon {
-            font-size: 2rem;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-section-name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: opacity 0.3s ease;
+        }
+
+        .header-progress-text {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+            min-width: 38px;
+            text-align: center;
         }
 
         .header-actions {
@@ -297,6 +349,132 @@
             font-size: 0.875rem;
         }
 
+        .stat-item a {
+            display: inline-block;
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .stat-item a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Quick Navigation Pills */
+        .hero-quick-nav {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .quick-nav-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-nav-pill::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .quick-nav-pill:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(1, 117, 194, 0.3);
+        }
+
+        .quick-nav-pill:hover::before {
+            opacity: 0.15;
+        }
+
+        .quick-nav-pill .pill-icon {
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+
+        .quick-nav-pill .pill-text {
+            z-index: 1;
+        }
+
+        .quick-nav-pill .pill-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            z-index: 1;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Target Audience Section */
+        .hero-audience {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 750px;
+            margin-bottom: 2rem;
+        }
+
+        .audience-card {
+            flex: 1;
+            min-width: 200px;
+            max-width: 230px;
+            padding: 1.25rem 1rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .audience-card {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .audience-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(1, 117, 194, 0.15);
+        }
+
+        .audience-card .audience-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .audience-card .audience-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
         .scroll-indicator {
             position: absolute;
             bottom: 2rem;
@@ -338,7 +516,7 @@
         .nav-toggle {
             position: fixed;
             right: 2rem;
-            top: 90px;
+            top: 100px;
             z-index: 9997;
             background: var(--gradient-1);
             border: none;
@@ -482,7 +660,7 @@
 
         .section-info p {
             color: var(--text-secondary);
-            font-size: 0.875rem;
+            font-size: 0.95rem;
         }
 
         .section-toggle {
@@ -516,6 +694,29 @@
 
         .section-body {
             padding: 2rem;
+        }
+
+        .section-body code {
+            direction: ltr;
+            unicode-bidi: embed;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            background: var(--code-bg);
+            padding: 0.15em 0.45em;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        table code {
+            direction: ltr;
+            unicode-bidi: embed;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        table td,
+        table th {
+            font-size: 0.95rem;
         }
 
         /* Content Styles */
@@ -1024,6 +1225,8 @@
             font-family: 'Fira Code', monospace;
             min-height: 100px;
             color: var(--text-secondary);
+            direction: ltr;
+            text-align: left;
         }
 
         .demo-output-line {
@@ -1719,6 +1922,321 @@
                 display: none;
             }
         }
+
+        /* Challenge Boxes */
+        .challenge-box {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 2px solid transparent;
+            background-image: linear-gradient(var(--bg-secondary), var(--bg-secondary)),
+                linear-gradient(135deg, #FF6B6B, #0175C2, #00BFA5);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            position: relative;
+        }
+
+        .challenge-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .challenge-box p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .challenge-box .challenge-code {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            direction: ltr;
+            text-align: left;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            white-space: pre-wrap;
+        }
+
+        .challenge-box textarea {
+            width: 100%;
+            min-height: 100px;
+            background: var(--code-bg);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            resize: vertical;
+            direction: ltr;
+            text-align: left;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .challenge-box textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(1, 117, 194, 0.15);
+        }
+
+        .challenge-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .challenge-check-btn {
+            background: var(--gradient-1);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(1, 117, 194, 0.3);
+        }
+
+        .challenge-reset-btn {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-reset-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .challenge-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .challenge-result.success {
+            display: block;
+            background: rgba(102, 187, 106, 0.15);
+            border: 1px solid #66BB6A;
+            color: #66BB6A;
+        }
+
+        .challenge-result.error {
+            display: block;
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid #FF6B6B;
+            color: #FF6B6B;
+        }
+
+        .challenge-result .hint {
+            font-weight: 400;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            opacity: 0.85;
+        }
+
+        /* Enhanced responsive */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .hero-stats {
+                gap: 0.5rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 1rem;
+            }
+
+            .challenge-box {
+                padding: 1rem;
+            }
+
+            .challenge-box textarea {
+                min-height: 80px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Visual Tree */
+        .tree-container {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        .tree-container h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .tree ul {
+            padding-top: 20px;
+            position: relative;
+            transition: all 0.5s;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .tree li {
+            float: left;
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+            transition: all 0.5s;
+        }
+
+        /* Connectors */
+        .tree li::before,
+        .tree li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            border-top: 2px solid var(--border);
+            width: 50%;
+            height: 20px;
+        }
+
+        .tree li::after {
+            right: auto;
+            left: 50%;
+            border-left: 2px solid var(--border);
+        }
+
+        .tree li:only-child::after,
+        .tree li:only-child::before {
+            display: none;
+        }
+
+        .tree li:only-child {
+            padding-top: 0;
+        }
+
+        .tree li:first-child::before,
+        .tree li:last-child::after {
+            border: 0 none;
+        }
+
+        .tree li:last-child::before {
+            border-right: 2px solid var(--border);
+            border-radius: 0 5px 0 0;
+        }
+
+        .tree li:first-child::after {
+            border-radius: 5px 0 0 0;
+        }
+
+        .tree ul ul::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            border-left: 2px solid var(--border);
+            width: 0;
+            height: 20px;
+        }
+
+        .tree-node {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-family: 'Fira Code', monospace;
+            min-width: 120px;
+        }
+
+        .tree-node.parent {
+            background: rgba(1, 117, 194, 0.1);
+            border-color: var(--primary);
+        }
+
+        .tree-node.child {
+            background: rgba(0, 191, 165, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .tree-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tree-node small {
+            display: block;
+            margin-top: 5px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        /* LeetCode Difficulty */
+        .difficulty-level {
+            margin: 1.5rem 0 0.5rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .leetcode-link {
+            border-left: 4px solid transparent;
+        }
+
+        .leetcode-link.easy {
+            border-left-color: #00b894;
+        }
+
+        .leetcode-link.medium {
+            border-left-color: #fdcb6e;
+        }
+
+        .leetcode-link.hard {
+            border-left-color: #d63031;
+        }
     </style>
 </head>
 
@@ -1731,11 +2249,13 @@
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <div class="logo">
-                <span class="logo-icon">🎯</span>
-                <span>OOP in Dart Guide</span>
+            <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
+                <span class="logo-icon"><img src="https://dart.dev/assets/img/logo/dart-192.svg" alt="Dart"></span>
+                <span>OOP in Dart</span>
             </div>
+            <span class="header-section-name" id="currentSectionName"></span>
             <div class="header-actions">
+                <span class="header-progress-text" id="progressText">0%</span>
                 <a href="https://github.com/mohamed-hassan-pro/dart-oop-guide" target="_blank" class="github-btn"
                     title="GitHub">
                     <svg viewBox="0 0 16 16">
@@ -1889,38 +2409,68 @@
             🎁 هدية رمضان للمطورين العرب
         </div>
         <h1>
-            دليل <span>OOP in Dart</span><br>
-            الكامل
+            <span>OOP in Dart</span><br>
+            Deep Dive 🚀
         </h1>
         <p class="hero-subtitle">
-            مرجع شامل ومبسط لمفاهيم البرمجة كائنية التوجه في Dart بالعربي<br>
-            مع أمثلة عملية وتحضير كامل للمقابلات التقنية
+            دليل شامل ومبسط لإتقان البرمجة كائنية التوجه في Dart بالعربي<br>
+            من الأساسيات لحد الاحتراف — مع أمثلة عملية، تحديات تفاعلية، وتحضير كامل للمقابلات التقنية
         </p>
         <div class="hero-stats">
             <div class="stat-item">
-                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-number" data-target="14">0</div>
                 <div class="stat-label">موضوع أساسي</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" data-target="50" data-suffix="+">0</div>
+                <div class="stat-number" data-target="70" data-suffix="+">0</div>
                 <div class="stat-label">مثال عملي</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">قيمة مجانية</div>
+                <div class="stat-number"><svg width="28" height="28" viewBox="0 0 16 16" fill="currentColor"
+                        style="vertical-align: middle;">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                    </svg></div>
+                <div class="stat-label">Open Source</div>
+                <a href="https://github.com/mohamed-hassan-pro/dart-oop-guide" target="_blank">شارك في التطوير →</a>
             </div>
         </div>
-        <div class="hero-cta">
-            <a href="#classes" class="cta-btn cta-primary">📖 ابدأ التعلم</a>
-            <a href="https://github.com/mohamed-hassan-pro/dart-oop-guide" target="_blank"
-                class="cta-btn cta-secondary">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
-                    <path
-                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-                </svg>
-                شارك في التطوير على GitHub
+
+        <!-- Quick Navigation -->
+        <div class="hero-quick-nav">
+            <a href="#classes" class="quick-nav-pill">
+                <span class="pill-icon">📖</span>
+                <span class="pill-text">ابدأ التعلم</span>
+                <span class="pill-badge">14%</span>
+            </a>
+            <a href="#leetcode" class="quick-nav-pill">
+                <span class="pill-icon">💪</span>
+                <span class="pill-text">تدرب على LeetCode</span>
+                <span class="pill-badge">88%</span>
+            </a>
+            <a href="#quiz" class="quick-nav-pill">
+                <span class="pill-icon">📝</span>
+                <span class="pill-text">اختبر نفسك</span>
+                <span class="pill-badge">95%</span>
             </a>
         </div>
+
+        <!-- Target Audience -->
+        <div class="hero-audience">
+            <div class="audience-card">
+                <span class="audience-icon">🌱</span>
+                <span class="audience-text">لو لسه بتبدأ طريقك في Dart و Flutter</span>
+            </div>
+            <div class="audience-card">
+                <span class="audience-icon">🎯</span>
+                <span class="audience-text">لو بتراجع وتجهز للـ Technical Interviews</span>
+            </div>
+            <div class="audience-card">
+                <span class="audience-icon">🏗️</span>
+                <span class="audience-text">لو عايز تعمق فهمك وتبني بـ Architecture قوية</span>
+            </div>
+        </div>
+
         <div class="scroll-indicator">
             <span></span>
         </div>
@@ -2438,6 +2988,29 @@
                                 <div class="tree-child">Dog<br><small>(bark())</small></div>
                                 <div class="tree-child">Cat<br><small>(meow())</small></div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Inheritance Tree -->
+                    <div class="tree-container">
+                        <h3>🧬 شجرة الوراثة (Inheritance Tree)</h3>
+                        <div class="tree">
+                            <ul>
+                                <li>
+                                    <span class="tree-node parent">Animal<br><small>limbs, weight</small></span>
+                                    <ul>
+                                        <li>
+                                            <span class="tree-node child">Lion<br><small>roar()</small></span>
+                                        </li>
+                                        <li>
+                                            <span class="tree-node child">Dog<br><small>bark()</small></span>
+                                        </li>
+                                        <li>
+                                            <span class="tree-node child">Cat<br><small>meow()</small></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
@@ -3267,35 +3840,58 @@
             <div class="leetcode-header">
                 <span class="leetcode-icon">💪</span>
                 <div>
-                    <h3>تدرب على LeetCode</h3>
-                    <p>مسائل موصى بها لتحسين مهاراتك في OOP in Dart</p>
+                    <h3>مسائل LeetCode للتدريب</h3>
+                    <p>تم اختيار هذه المسائل بعناية لتطبيق مفاهيم OOP</p>
                 </div>
             </div>
+
+            <div class="difficulty-level">🟢 سهل (Easy)</div>
             <div class="leetcode-links">
-                <a href="https://leetcode.com/problems/design-parking-system/" target="_blank" class="leetcode-link">
+                <a href="https://leetcode.com/problems/design-parking-system/" target="_blank"
+                    class="leetcode-link easy">
                     <span>🚗 Design Parking System</span>
                     <span>↗️</span>
                 </a>
-                <a href="https://leetcode.com/problems/design-an-ordered-stream/" target="_blank" class="leetcode-link">
+                <a href="https://leetcode.com/problems/design-an-ordered-stream/" target="_blank"
+                    class="leetcode-link easy">
                     <span>📊 Design Ordered Stream</span>
                     <span>↗️</span>
                 </a>
-                <a href="https://leetcode.com/problems/design-browser-history/" target="_blank" class="leetcode-link">
-                    <span>🌐 Browser History</span>
+            </div>
+
+            <div class="difficulty-level">🟡 متوسط (Medium)</div>
+            <div class="leetcode-links">
+                <a href="https://leetcode.com/problems/design-browser-history/" target="_blank"
+                    class="leetcode-link medium">
+                    <span>🌐 Design Browser History</span>
                     <span>↗️</span>
                 </a>
                 <a href="https://leetcode.com/problems/design-underground-system/" target="_blank"
-                    class="leetcode-link">
-                    <span>🚇 Underground System</span>
+                    class="leetcode-link medium">
+                    <span>🚇 Design Underground System</span>
                     <span>↗️</span>
                 </a>
                 <a href="https://leetcode.com/problems/design-a-stack-with-increment-operation/" target="_blank"
-                    class="leetcode-link">
+                    class="leetcode-link medium">
                     <span>📚 Stack with Increment</span>
                     <span>↗️</span>
                 </a>
-                <a href="https://leetcode.com/problems/design-circular-queue/" target="_blank" class="leetcode-link">
-                    <span>🔄 Circular Queue</span>
+                <a href="https://leetcode.com/problems/design-file-system/" target="_blank"
+                    class="leetcode-link medium">
+                    <span>📂 Design File System</span>
+                    <span>↗️</span>
+                </a>
+            </div>
+
+            <div class="difficulty-level">🔴 صعب (Hard)</div>
+            <div class="leetcode-links">
+                <a href="https://leetcode.com/problems/design-in-memory-file-system/" target="_blank"
+                    class="leetcode-link hard">
+                    <span>💾 In-Memory File System</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://leetcode.com/problems/lfu-cache/" target="_blank" class="leetcode-link hard">
+                    <span>⚡ LFU Cache</span>
                     <span>↗️</span>
                 </a>
             </div>
@@ -3347,7 +3943,20 @@
                     شارك في التطوير
                 </a>
             </div>
-            <p class="footer-tagline">
+
+            <div class="footer-future"
+                style="margin-top: 2rem; padding: 1.5rem; background: rgba(1, 117, 194, 0.08); border-radius: 16px; border: 1px solid rgba(1, 117, 194, 0.2); max-width: 600px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 1.05rem; margin-bottom: 0.75rem; color: var(--text-primary);">🚀
+                    <strong>الرحلة لسه في البداية!</strong>
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 0.75rem;">
+                    بنجهز محتوى أكتر عن <strong>OOD (Object-Oriented Design)</strong>، <strong>Design Patterns</strong>،
+                    و<strong>SOLID Principles</strong> — عشان الدليل دا يبقى مرجعك الكامل.</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">🙏 <strong>زكاة العلم
+                        نشره</strong> — لو الدليل فادك، شاركه مع زمايلك. يمكن تكون سبب في فتح باب خير لحد غيرك ❤️</p>
+            </div>
+
+            <p class="footer-tagline" style="margin-top: 1.5rem;">
                 🎁 هدية رمضان 2026 للمطورين العرب
             </p>
             <p class="footer-hashtag">#OOP_in_Dart_Guide_by_Moubdi3</p>
@@ -3361,6 +3970,243 @@
     </button>
 
     <script>
+
+        // ====== Challenge System ======
+        const challenges = [
+            {
+                sectionId: 'classes',
+                title: '🧪 تحدي: أنشئ Class بنفسك',
+                description: 'أنشئ Class باسم <code>Car</code> يحتوي على خاصية <code>brand</code> من نوع String وخاصية <code>speed</code> من نوع int، ودالة <code>drive()</code> تطبع "Driving!"',
+                placeholder: 'class Car {\n  // اكتب الكود هنا\n}',
+                keywords: ['class', 'Car', 'String', 'brand', 'int', 'speed', 'drive'],
+                minKeywords: 5,
+                successMsg: '✅ أحسنت! إنشاء Class مع الخصائص والدوال هو أساس الـ OOP.',
+                errorMsg: '❌ تأكد أن الكود يحتوي على: class Car مع خصائص brand (String) و speed (int) ودالة drive()',
+                hint: 'تلميح: استخدم String brand; و int speed; ثم أضف void drive() { print("Driving!"); }'
+            },
+            {
+                sectionId: 'properties',
+                title: '🧪 تحدي: أنواع الخصائص',
+                description: 'أنشئ Class باسم <code>Student</code> فيه خاصية <code>name</code> عادية، وخاصية <code>grade</code> من نوع nullable، وخاصية <code>id</code> من نوع final.',
+                placeholder: 'class Student {\n  // اكتب الكود هنا\n}',
+                keywords: ['class', 'Student', 'name', 'grade', '?', 'final', 'id'],
+                minKeywords: 5,
+                successMsg: '✅ ممتاز! فهمت الفرق بين الخصائص العادية و nullable و final.',
+                errorMsg: '❌ تأكد من استخدام ? للـ nullable و final للخاصية الثابتة.',
+                hint: 'تلميح: String name; ثم double? grade; ثم final int id;'
+            },
+            {
+                sectionId: 'constructors',
+                title: '🧪 تحدي: Constructor مختصر',
+                description: 'أنشئ Class باسم <code>Product</code> فيه خصائص <code>name</code> و <code>price</code>، واستخدم الطريقة المختصرة في الـ Constructor.',
+                placeholder: 'class Product {\n  // اكتب الكود هنا\n}',
+                keywords: ['class', 'Product', 'name', 'price', 'this.name', 'this.price'],
+                minKeywords: 4,
+                successMsg: '✅ رائع! الطريقة المختصرة بتوفر وقت وكود.',
+                errorMsg: '❌ استخدم this.name و this.price في الـ Constructor مباشرة.',
+                hint: 'تلميح: Product(this.name, this.price);'
+            },
+            {
+                sectionId: 'encapsulation',
+                title: '🧪 تحدي: Getter و Setter',
+                description: 'أنشئ Class باسم <code>Temperature</code> يحتوي على خاصية private <code>_celsius</code>، وأضف Getter و Setter بحيث يمنع القيم أقل من -273.',
+                placeholder: 'class Temperature {\n  double _celsius = 0;\n  // أضف getter و setter\n}',
+                keywords: ['_celsius', 'get', 'set', '-273', 'Temperature'],
+                minKeywords: 4,
+                successMsg: '✅ ممتاز! التغليف يحمي البيانات من القيم غير المنطقية.',
+                errorMsg: '❌ تأكد من استخدام _ للخاصية الخاصة وإضافة get و set مع validation.',
+                hint: 'تلميح: double get celsius => _celsius; ثم set celsius(double value) { if (value >= -273) ... }'
+            },
+            {
+                sectionId: 'arrow',
+                title: '🧪 تحدي: حوّل لـ Arrow Function',
+                description: 'حوّل الدالة التالية إلى Arrow Function:',
+                codeSnippet: 'int square(int n) {\n  return n * n;\n}',
+                placeholder: '// اكتب الدالة السهمية هنا\nint square(int n) =>',
+                keywords: ['int', 'square', '=>', 'n * n'],
+                minKeywords: 3,
+                successMsg: '✅ صح! الـ Arrow Function بتختصر الكود المكون من سطر واحد.',
+                errorMsg: '❌ استخدم => بدل { return ... }',
+                hint: 'تلميح: int square(int n) => n * n;'
+            },
+            {
+                sectionId: 'inheritance',
+                title: '🧪 تحدي: إنشاء وراثة',
+                description: 'أنشئ Class <code>Shape</code> فيه دالة <code>area()</code>، ثم أنشئ Class <code>Circle</code> يرث من <code>Shape</code> ويعمل override للدالة.',
+                placeholder: 'class Shape {\n  // ...\n}\n\nclass Circle extends Shape {\n  // ...\n}',
+                keywords: ['class', 'Shape', 'Circle', 'extends', 'area', '@override'],
+                minKeywords: 4,
+                successMsg: '✅ رائع! الوراثة من أقوى مبادئ الـ OOP — إعادة الاستخدام.',
+                errorMsg: '❌ تأكد أن Circle يستخدم extends Shape وأنك عملت @override للدالة.',
+                hint: 'تلميح: class Circle extends Shape { @override double area() => ... }'
+            },
+            {
+                sectionId: 'polymorphism',
+                title: '🧪 تحدي: تعدد الأشكال',
+                description: 'أنشئ List من نوع <code>Animal</code> تحتوي على <code>Lion</code> و <code>Dog</code>، واستدعي دالة <code>eat()</code> لكل عنصر.',
+                placeholder: 'void main() {\n  // أنشئ List وكرر عليها\n}',
+                keywords: ['List', 'Animal', 'Lion', 'Dog', 'for', 'eat'],
+                minKeywords: 4,
+                successMsg: '✅ ممتاز! تعدد الأشكال يخلي الكود مرن وقابل للتطوير.',
+                errorMsg: '❌ تأكد من إنشاء List<Animal> واستخدام for loop.',
+                hint: 'تلميح: List<Animal> zoo = [Lion(...), Dog(...)]; for (var a in zoo) { a.eat(); }'
+            },
+            {
+                sectionId: 'abstract',
+                title: '🧪 تحدي: Abstract Class',
+                description: 'أنشئ Abstract Class باسم <code>Vehicle</code> فيه دالة مجردة <code>start()</code>، ثم أنشئ Class <code>Car</code> ينفذها.',
+                placeholder: 'abstract class Vehicle {\n  // ...\n}\n\nclass Car extends Vehicle {\n  // ...\n}',
+                keywords: ['abstract', 'class', 'Vehicle', 'Car', 'extends', 'start', '@override'],
+                minKeywords: 5,
+                successMsg: '✅ أحسنت! الـ Abstract Classes تضمن أن كل الأبناء ينفذوا الدوال المطلوبة.',
+                errorMsg: '❌ كمل الحل: استخدم abstract class ثم extends و @override.',
+                hint: 'تلميح: abstract class Vehicle { void start(); } ثم class Car extends Vehicle { @override void start() => ... }'
+            },
+            {
+                sectionId: 'interfaces',
+                title: '🧪 تحدي: Implements',
+                description: 'أنشئ Class <code>Printable</code> فيه دالة <code>printInfo()</code>، ثم أنشئ Class <code>Book</code> يعمل implements لـ Printable.',
+                placeholder: 'class Printable {\n  void printInfo() {}\n}\n\nclass Book implements Printable {\n  // ...\n}',
+                keywords: ['class', 'Printable', 'Book', 'implements', 'printInfo', '@override'],
+                minKeywords: 4,
+                successMsg: '✅ ممتاز! الـ implements تجبرك على إعادة تنفيذ كل الدوال.',
+                errorMsg: '❌ تأكد أن Book يستخدم implements Printable مع @override.',
+                hint: 'تلميح: class Book implements Printable { @override void printInfo() => print("Book"); }'
+            },
+            {
+                sectionId: 'mixins',
+                title: '🧪 تحدي: استخدم Mixin',
+                description: 'أنشئ Mixin باسم <code>Swimming</code> فيه دالة <code>swim()</code>، واستخدمه مع Class <code>Duck</code>.',
+                placeholder: 'mixin Swimming {\n  // ...\n}\n\nclass Duck with Swimming {\n  // ...\n}',
+                keywords: ['mixin', 'Swimming', 'swim', 'Duck', 'with'],
+                minKeywords: 4,
+                successMsg: '✅ رائع! الـ Mixins تخليك تضيف سلوكيات بدون وراثة.',
+                errorMsg: '❌ تأكد من استخدام mixin وكلمة with.',
+                hint: 'تلميح: mixin Swimming { void swim() => print("Swimming"); } class Duck with Swimming {}'
+            },
+            {
+                sectionId: 'named-constructors',
+                title: '🧪 تحدي: Named Constructor',
+                description: 'أنشئ Class <code>Point</code> فيه Named Constructor باسم <code>origin</code> يجعل x=0 و y=0.',
+                placeholder: 'class Point {\n  double x, y;\n  \n  // أضف Named Constructor\n}',
+                keywords: ['class', 'Point', 'origin', '.origin', 'x', 'y'],
+                minKeywords: 4,
+                successMsg: '✅ أحسنت! الـ Named Constructors بتوضح غرض الإنشاء.',
+                errorMsg: '❌ تأكد من إنشاء Point.origin() مع تعيين x و y.',
+                hint: 'تلميح: Point.origin() : x = 0, y = 0;'
+            },
+            {
+                sectionId: 'late',
+                title: '🧪 تحدي: Late Keyword',
+                description: 'أنشئ Class فيه خاصية <code>late</code> باسم <code>description</code> يتم تهيئتها لاحقاً.',
+                placeholder: 'class Item {\n  // استخدم late هنا\n}',
+                keywords: ['late', 'String', 'description', 'class'],
+                minKeywords: 3,
+                successMsg: '✅ صح! late تخلي الخاصية تتهيأ في وقت لاحق.',
+                errorMsg: '❌ تأكد من استخدام late String description;',
+                hint: 'تلميح: late String description;'
+            },
+            {
+                sectionId: 'object',
+                title: '🧪 تحدي: Object Methods',
+                description: 'أعد تعريف دالة <code>toString()</code> في Class <code>User</code> لترجع اسم المستخدم.',
+                placeholder: 'class User {\n  String name;\n  User(this.name);\n  \n  // أعد تعريف toString\n}',
+                keywords: ['@override', 'toString', 'String', 'name', 'return'],
+                minKeywords: 3,
+                successMsg: '✅ ممتاز! إعادة تعريف toString() يحسن debugging كثيراً.',
+                errorMsg: '❌ تأكد من استخدام @override String toString() => ...',
+                hint: 'تلميح: @override String toString() => "User: $name";'
+            },
+            {
+                sectionId: 'enums',
+                title: '🧪 تحدي: إنشاء Enum',
+                description: 'أنشئ <code>enum</code> باسم <code>Color</code> يحتوي على القيم: red, green, blue.',
+                placeholder: 'enum Color {\n  // اكتب القيم هنا\n}',
+                keywords: ['enum', 'Color', 'red', 'green', 'blue'],
+                minKeywords: 4,
+                successMsg: '✅ رائع! الـ Enums تمنع القيم العشوائية وتضمن Type Safety.',
+                errorMsg: '❌ تأكد من كتابة enum Color { red, green, blue }',
+                hint: 'تلميح: enum Color { red, green, blue }'
+            }
+        ];
+
+        // Auto-inject challenges into sections
+        function renderChallenges() {
+            challenges.forEach((ch, index) => {
+                const section = document.getElementById(ch.sectionId);
+                if (!section) return;
+                const sectionBody = section.querySelector('.section-body');
+                if (!sectionBody) return;
+
+                const challengeHTML = `
+                    <div class="challenge-box" id="challenge-${ch.sectionId}">
+                        <h4>${ch.title}</h4>
+                        <p>${ch.description}</p>
+                        ${ch.codeSnippet ? `<div class="challenge-code">${ch.codeSnippet}</div>` : ''}
+                        <textarea id="challenge-input-${ch.sectionId}" placeholder="${ch.placeholder}" spellcheck="false"></textarea>
+                        <div class="challenge-actions">
+                            <button class="challenge-check-btn" onclick="checkChallenge('${ch.sectionId}')">✅ تحقق من الحل</button>
+                            <button class="challenge-reset-btn" onclick="resetChallenge('${ch.sectionId}')">🔄 إعادة</button>
+                        </div>
+                        <div class="challenge-result" id="challenge-result-${ch.sectionId}"></div>
+                    </div>
+                `;
+                sectionBody.insertAdjacentHTML('beforeend', challengeHTML);
+            });
+        }
+
+        function checkChallenge(sectionId) {
+            const ch = challenges.find(c => c.sectionId === sectionId);
+            if (!ch) return;
+
+            const input = document.getElementById(`challenge-input-${sectionId}`).value.trim();
+            const resultDiv = document.getElementById(`challenge-result-${sectionId}`);
+
+            if (!input) {
+                resultDiv.className = 'challenge-result error';
+                resultDiv.innerHTML = '❌ اكتب حلك الأول!';
+                return;
+            }
+
+            const matchedKeywords = ch.keywords.filter(kw => input.includes(kw));
+
+            if (matchedKeywords.length >= ch.minKeywords) {
+                resultDiv.className = 'challenge-result success';
+                resultDiv.innerHTML = `${ch.successMsg}<div class="hint">✨ أثبتّ فهمك — كمّل للقسم التالي!</div>`;
+            } else {
+                resultDiv.className = 'challenge-result error';
+                resultDiv.innerHTML = `${ch.errorMsg}<div class="hint">${ch.hint}</div>`;
+            }
+        }
+
+        function resetChallenge(sectionId) {
+            const input = document.getElementById(`challenge-input-${sectionId}`);
+            const resultDiv = document.getElementById(`challenge-result-${sectionId}`);
+            input.value = '';
+            resultDiv.className = 'challenge-result';
+            resultDiv.innerHTML = '';
+        }
+
+        // Render challenges on page load + scroll to top
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        // Clear saved scroll and sections so page always opens fresh
+        localStorage.removeItem('openSections');
+        window.scrollTo(0, 0);
+        if (window.location.hash) {
+            history.replaceState(null, '', window.location.pathname);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChallenges();
+            window.scrollTo(0, 0);
+            document.getElementById('progressBar').style.width = '0%';
+            // Re-enable smooth scrolling after initial position is set
+            setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }, 200);
+        });
 
         // Theme Toggle
         function toggleTheme() {
@@ -3390,28 +4236,29 @@
             nav.classList.remove('open');
         }
 
-        // Section Toggle
+        // Section Toggle (Accordion - only one open at a time)
         function toggleSection(header) {
             const section = header.parentElement;
+            const isCurrentlyOpen = section.classList.contains('open');
+
+            // Close all other sections first
+            document.querySelectorAll('.section.open').forEach(s => {
+                if (s !== section) {
+                    s.classList.remove('open');
+                }
+            });
+
+            // Toggle the clicked section
             section.classList.toggle('open');
 
-            // Save open sections
+            // Save state
             const sectionId = section.id;
             const isOpen = section.classList.contains('open');
-            const openSections = JSON.parse(localStorage.getItem('openSections') || '[]');
-
             if (isOpen) {
-                if (!openSections.includes(sectionId)) {
-                    openSections.push(sectionId);
-                }
+                localStorage.setItem('openSections', JSON.stringify([sectionId]));
             } else {
-                const index = openSections.indexOf(sectionId);
-                if (index > -1) {
-                    openSections.splice(index, 1);
-                }
+                localStorage.setItem('openSections', JSON.stringify([]));
             }
-
-            localStorage.setItem('openSections', JSON.stringify(openSections));
         }
 
         // Restore open sections
@@ -3457,6 +4304,8 @@
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const progress = (scrollTop / docHeight) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
+            const progressText = document.getElementById('progressText');
+            if (progressText) progressText.textContent = Math.round(progress) + '%';
         }
 
         window.addEventListener('scroll', updateProgress);
@@ -3482,24 +4331,21 @@
                 }
             });
 
-            // Save last viewed section
-            if (currentSection) {
-                localStorage.setItem('lastSection', currentSection);
+            // Update header section name
+            const sectionNameEl = document.getElementById('currentSectionName');
+            if (sectionNameEl) {
+                if (currentSection) {
+                    const activeSection = document.getElementById(currentSection);
+                    const h2 = activeSection ? activeSection.querySelector('.section-info h2') : null;
+                    sectionNameEl.textContent = h2 ? h2.textContent : '';
+                } else {
+                    sectionNameEl.textContent = '';
+                }
             }
+
         }
 
         window.addEventListener('scroll', updateActiveNav);
-
-        // Scroll to last viewed section on load
-        const lastSection = localStorage.getItem('lastSection');
-        if (lastSection) {
-            const section = document.getElementById(lastSection);
-            if (section) {
-                setTimeout(() => {
-                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 500);
-            }
-        }
 
         // Demo Functions
         function runDemo(type) {
@@ -3549,82 +4395,132 @@
                 correct: 2
             },
             {
-                question: 'ما هو استخدام الكلمة المفتاحية "late"؟',
+                question: 'كيف يمكنك إنشاء Private Property في Dart؟',
                 options: [
-                    'لجعل المتغير ثابتاً',
-                    'لتأجيل التهيئة إلى أول استخدام',
-                    'لجعل المتغير خاصاً',
-                    'لإنشاء constructor'
+                    'استخدام الكلمة private',
+                    'إضافة _ قبل اسم المتغير',
+                    'استخدام الكلمة protected',
+                    'لا يمكن ذلك'
                 ],
                 correct: 1
             },
             {
-                question: 'كيف تجعل خاصية خاصة (Private) في Dart؟',
+                question: 'ما فائدة الـ Constructor؟',
                 options: [
-                    'تستخدم الكلمة private',
-                    'تضيف _ قبل اسم الخاصية',
-                    'تستخدم الكلمة protected',
-                    'لا يمكن ذلك في Dart'
+                    'حذف الكائن',
+                    'تهيئة الكائن عند إنشائه',
+                    'تعديل خصائص الكائن لاحقاً',
+                    'طباعة معلومات الكائن'
                 ],
                 correct: 1
             },
             {
-                question: 'ما هو الميكسين (Mixin)؟',
+                question: 'أي مما يلي يعتبر Named Constructor صحيح؟',
                 options: [
-                    'نوع من أنواع الوراثة',
-                    'طريقة لإعادة استخدام الكود بين فصول غير مرتبطة',
-                    'نوع من أنواع Constructors',
-                    'دالة خاصة'
+                    'ClassName()',
+                    'ClassName.origin()',
+                    'ClassName {}',
+                    'new ClassName()'
                 ],
                 correct: 1
             },
             {
-                question: 'ما هي نتيجة الكود التالي: List<Animal> zoo = [Lion(), Dog()]; zoo[0].makeSound();',
+                question: 'ما هي الـ Mixin؟',
                 options: [
-                    'خطأ في الترجمة',
-                    'سيستدعي makeSound() من Lion',
-                    'سيستدعي makeSound() من Animal',
-                    'لا شيء سيحدث'
+                    'طريقة للوراثة المتعددة',
+                    'طريقة لإعادة استخدام الكود في فصول غير مترابطة',
+                    'نوع من أنواع الواجهات',
+                    'بديل للـ Abstract Class'
+                ],
+                correct: 1
+            },
+            {
+                question: 'كيف تستخدم Mixin في Class؟',
+                options: [
+                    'using MixinName',
+                    'extends MixinName',
+                    'with MixinName',
+                    'implements MixinName'
+                ],
+                correct: 2
+            },
+            {
+                question: 'ماذا تفعل الكلمة المفتاحية late؟',
+                options: [
+                    'تجعل المتغيرNullable',
+                    'تؤجل تهيئة المتغير إلى حين استخدامه',
+                    'تمنع تغيير قيمة المتغير',
+                    'تجعل المتغير static'
+                ],
+                correct: 1
+            },
+            {
+                question: 'ما هو الـ Polymorphism؟',
+                options: [
+                    'القدرة على اتخاذ أشكال متعددة',
+                    'إنشاء كائنات متعددة',
+                    'الوراثة من عدة فصول',
+                    'تغليف البيانات'
+                ],
+                correct: 0
+            },
+            {
+                question: 'ما هي الطريقة الصحيحة للتحقق من نوع الكائن؟',
+                options: [
+                    'obj.type == ClassName',
+                    'typeof obj == ClassName',
+                    'obj is ClassName',
+                    'obj instanceof ClassName'
+                ],
+                correct: 2
+            },
+            {
+                question: 'ما هو Enum؟',
+                options: [
+                    'دالة مجهولة',
+                    'مجموعة من القيم الثابتة المسماة',
+                    'فصل مجرد',
+                    'متغير متغير القيمة'
+                ],
+                correct: 1
+            },
+            {
+                question: 'أي دالة يتم استدعاؤها عند طباعة الكائن print(obj)؟',
+                options: [
+                    'print()',
+                    'toString()',
+                    'toJson()',
+                    'display()'
                 ],
                 correct: 1
             },
             {
                 question: 'ما هو الفرق بين final و const؟',
                 options: [
-                    'لا يوجد فرق',
-                    'final في وقت التشغيل، const في وقت الترجمة',
-                    'const في وقت التشغيل، final في وقت الترجمة',
-                    'final للدوال، const للمتغيرات'
+                    'const وقت التشغيل، final وقت الترجمة',
+                    'final وقت التشغيل، const وقت الترجمة',
+                    'كلاهما نفس الشيء',
+                    'final للمتغيرات فقط'
                 ],
                 correct: 1
             },
             {
-                question: 'ما هي الطريقة المختصرة لكتابة Constructor في Dart؟',
+                question: 'هل يمكن للـ Interface أن تحتوي على constructor؟',
                 options: [
-                    'ClassName(this.property)',
-                    'ClassName({this.property})',
-                    'ClassName([this.property])',
-                    'كل ما سبق صحيح'
-                ],
-                correct: 3
-            },
-            {
-                question: 'ما هو استخدام @override؟',
-                options: [
-                    'لإجبار المبرمج على إعادة تعريف الدالة',
-                    'تلميح للقارئ بأن الدالة معاد تعريفها',
-                    'لمنع إعادة تعريف الدالة',
-                    'لجعل الدالة خاصة'
+                    'نعم',
+                    'لا',
+                    'فقط Named Constructor',
+                    'فقط Factory Constructor'
                 ],
                 correct: 1
             },
             {
-                question: 'ما هو نوع البيانات الذي يحتوي على مجموعة محددة من القيم الثابتة؟',
+                question: 'ماذا يحدث إذا لم تقم بتهيئة متغير non-nullable ولم تستخدم late؟',
                 options: [
-                    'List',
-                    'Map',
-                    'Enum',
-                    'Set'
+                    'يأخذ قيمة null',
+                    'يحدخطأ في وقت التشغيل',
+                    'يحدث خطأ في وقت الترجمة (Compile-time error)',
+                    'يأخذ قيمة افتراضية'
                 ],
                 correct: 2
             }
